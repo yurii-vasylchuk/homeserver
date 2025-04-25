@@ -1,0 +1,96 @@
+- name: Install kubectl
+  ansible.builtin.copy:
+    src: "{{ temp_path }}/kubectl"
+    dest: /usr/local/bin/kubectl
+    remote_src: yes
+    mode: '0755'
+
+- name: Check kubectl installation
+  ansible.builtin.command: kubectl version --client
+  register: kubectl_version
+  changed_when: false
+
+- name: Show kubectl version
+  ansible.builtin.debug:
+    msg: "Installed kubectl: {{ kubectl_version.stdout }}"
+
+- name: Install K3s
+  ansible.builtin.shell: |
+    {{ temp_path }}/k3s.sh
+  args:
+    executable: /bin/bash
+
+- name: Make directory ~/.kube
+  ansible.builtin.file:
+    path: /home/{{ ansible_user }}/.kube
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0700'
+
+- name: Copy kubeconfig into ~/.kube/config
+  ansible.builtin.copy:
+    src: /etc/rancher/k3s/k3s.yaml
+    dest: /home/{{ ansible_user }}/.kube/config
+    remote_src: yes
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0600
+
+- name: Fetch kubeconfig on local machine
+  ansible.builtin.fetch:
+    src: /etc/rancher/k3s/k3s.yaml
+    dest: ~/.kube/config
+    flat: yes
+
+- name: Update kubeconfig host
+  ansible.builtin.replace:
+    path: ~/.kube/config
+    regexp: 'server: https://127\.0\.0\.1:6443'
+    replace: 'server: https://{{ ansible_host }}:6443'
+  delegate_to: localhost
+  become: false
+
+- name: Apply traefik custom config
+  ansible.builtin.shell: |
+    kubectl apply -f {{ temp_path }}/traefik-helm-chart-config.yaml
+  become: true
+  become_user: ubuntu
+  args:
+    executable: /bin/bash
+
+- name: Delete Traefik pod (force restart)
+  become: true
+  become_user: ubuntu
+  ansible.builtin.shell: |
+    kubectl -n kube-system delete pod -l app.kubernetes.io/name=traefik
+  args:
+    executable: /bin/bash
+
+- name: Wait until Traefik pod appears
+  become: true
+  become_user: ubuntu
+  ansible.builtin.shell: |
+    while [ -z "$(kubectl -n kube-system get pods -l app.kubernetes.io/name=traefik --no-headers 2>/dev/null)" ]; do
+      echo "Waiting for Traefik pod to appear..."
+      sleep 2
+    done
+  args:
+    executable: /bin/bash
+
+- name: Wait until Traefik pod becomes Ready
+  become: true
+  become_user: ubuntu
+  ansible.builtin.shell: |
+    kubectl -n kube-system wait --for=condition=Ready pod -l app.kubernetes.io/name=traefik --timeout=120s
+  args:
+    executable: /bin/bash
+
+- name: Check K3s is active
+  ansible.builtin.shell: systemctl is-active k3s
+  register: k3s_status
+  changed_when: false
+
+- name: Log K3s status
+  ansible.builtin.debug:
+    msg: "K3s status: {{ k3s_status.stdout }}"

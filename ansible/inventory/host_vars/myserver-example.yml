@@ -1,0 +1,3 @@
+ansible_host: hostname or IP
+ansible_become_password: password
+temp_path: /tmp/ansible

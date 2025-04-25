@@ -1,0 +1,10 @@
+- name: Copy files
+  ansible.builtin.copy:
+    src: files/
+    dest: "{{ temp_path }}"
+    mode: 0644
+
+- name: Make scripts executable
+  ansible.builtin.file:
+    path: "{{ temp_path }}/k3s.sh"
+    mode: u=rwx,g=r,o=r

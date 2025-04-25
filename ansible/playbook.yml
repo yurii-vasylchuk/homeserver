@@ -1,0 +1,9 @@
+- name: Install k3s Cluster
+  hosts: k3s_cluster
+  become: true
+
+  roles:
+    - preparation
+    - k3s
+    - argocd
+    - cleanup

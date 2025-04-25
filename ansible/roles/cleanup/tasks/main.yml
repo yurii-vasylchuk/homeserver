@@ -1,0 +1,5 @@
+- name: Delete temp dir
+  ansible.builtin.shell: |
+    rm -r {{ temp_path }}
+  args:
+    executable: /bin/bash
