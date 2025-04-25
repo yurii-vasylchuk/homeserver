@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: kafka
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-options: Skip
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
