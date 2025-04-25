@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kafka-config
+  namespace: kafka
+  labels:
+    app: kafka
+data:
+  server.properties: |
+    num.network.threads=3
+    num.io.threads=8
+    socket.send.buffer.bytes=102400
+    socket.receive.buffer.bytes=102400
+    socket.request.max.bytes=104857600
+    log.retention.hours=168
+    log.segment.bytes=1073741824
+    log.retention.check.interval.ms=300000
+    group.initial.rebalance.delay.ms=0
+    offset.storage.topic.replication.factor={{ .Values.replicaCount }}
+    transaction.state.log.replication.factor={{ .Values.replicaCount }}
+    transaction.state.log.min.isr={{ sub .Values.replicaCount 1 }}
+    min.insync.replicas={{ sub .Values.replicaCount 1 }}

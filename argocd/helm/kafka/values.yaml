@@ -1,0 +1,6 @@
+replicaCount: 3
+
+serviceName: kafka-svc
+
+image:
+  version: 7.7.0
