@@ -1,5 +1,6 @@
 postgres:
   port: 5432
+  nodePort: 35432
   # TODO: Extract password to vault
   # For now it's safe as postgres available only inside cluster
   password: postgres

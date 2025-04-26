@@ -8,6 +8,8 @@ spec:
   ports:
     - port: {{ .Values.postgres.port }}
       targetPort: {{ .Values.postgres.port }}
-      nodePort: {{ .Values.postgres.port }}
+      {{- if .Values.postgres.nodePort }}
+      nodePort: {{ .Values.postgres.nodePort }}
+      {{- end}}
   selector:
     app: postgres
