@@ -8,5 +8,6 @@ spec:
   ports:
     - port: {{ .Values.postgres.port }}
       targetPort: {{ .Values.postgres.port }}
+      nodePort: {{ .Values.postgres.port }}
   selector:
     app: postgres
