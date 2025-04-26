@@ -4,6 +4,7 @@ metadata:
   name: postgres
   namespace: {{ .Values.postgres.namespace }}
 spec:
+  type: NodePort
   ports:
     - port: {{ .Values.postgres.port }}
       targetPort: {{ .Values.postgres.port }}
