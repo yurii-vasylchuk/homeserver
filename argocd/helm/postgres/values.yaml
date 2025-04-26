@@ -1,0 +1,22 @@
+postgres:
+  port: 5432
+  # TODO: Extract password to vault
+  # For now it's safe as postgres available only inside cluster
+  password: postgres
+  storageSize: 20Gi
+  namespace: postgres
+  resources:
+    requests:
+      cpu: "500m"
+      memory: "512Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+  livenessProbe:
+    enabled: true
+    initialDelaySeconds: 30
+    periodSeconds: 10
+  readinessProbe:
+    enabled: true
+    initialDelaySeconds: 10
+    periodSeconds: 5
