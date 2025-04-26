@@ -1,6 +1,6 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: postgres
+  name: {{ .Values.postgres.namespace }}
   labels:
-    name: postgres
+    name: {{ .Values.postgres.namespace }}
