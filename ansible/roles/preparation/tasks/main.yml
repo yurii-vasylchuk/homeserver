@@ -6,5 +6,5 @@
 
 - name: Make scripts executable
   ansible.builtin.file:
-    path: "{{ temp_path }}/k3s.sh"
+    path: "{{ temp_path }}/k3s/install.sh"
     mode: u=rwx,g=r,o=r

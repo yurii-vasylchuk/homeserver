@@ -1,3 +1,9 @@
 ansible_host: hostname or IP
 ansible_become_password: password
 temp_path: /tmp/ansible
+helm_version: v3.17.3
+github:
+  sshKey: |
+    -----BEGIN OPENSSH PRIVATE KEY-----
+    ...
+    -----END OPENSSH PRIVATE KEY-----

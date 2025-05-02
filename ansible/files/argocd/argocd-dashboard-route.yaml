@@ -7,13 +7,13 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`argocd.local`)
+    - match: Host(`argocd.yuriivasylchuk.org.ua`)
       kind: Rule
       services:
         - name: argocd-server
           port: 80
   tls:
-    secretName: dummy-tls-secret
+    certResolver: letsencrypt
 
 ---
 
@@ -51,7 +51,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`argocd.local`)
+    - match: Host(`argocd.yuriivasylchuk.org.ua`)
       kind: Rule
       middlewares:
         - name: redirect-to-https

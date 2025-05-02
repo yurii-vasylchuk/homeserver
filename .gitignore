@@ -1,6 +1,3 @@
 .idea
 
-ansible/files/tls.crt
-ansible/files/tls.key
-
 ansible/inventory/host_vars/myserver.yml

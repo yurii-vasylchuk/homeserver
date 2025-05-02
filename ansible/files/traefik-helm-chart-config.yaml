@@ -4,12 +4,15 @@ metadata:
   name: traefik
   namespace: kube-system
 spec:
+#  valuesContent:
   valuesContent: |-
     additionalArguments:
       - "--api"
       - "--api.dashboard=true"
       - "--api.insecure=true"
-      - "--log.level=DEBUG"
+      - "--certificatesresolvers.letsencrypt.acme.tlsChallenge=true"
+      - "--certificatesresolvers.letsencrypt.acme.email=yriy.vasilchuk@gmail.com"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/data/acme.json"
     ports:
       traefik:
         expose:
@@ -17,3 +20,5 @@ spec:
     providers:
       kubernetesCRD:
         allowCrossNamespace: true
+    persistence:
+      enabled: true

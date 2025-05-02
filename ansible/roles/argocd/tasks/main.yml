@@ -13,29 +13,11 @@
   args:
     executable: /bin/bash
 
-- name: Create TLS secret for dashboard if not exists
-  ansible.builtin.shell: |
-    kubectl -n argocd get secret dummy-tls-secret || \
-    kubectl -n argocd create secret tls dummy-tls-secret --cert={{ temp_path }}/tls.crt --key={{ temp_path }}/tls.key
-  become: true
-  become_user: ubuntu
-  args:
-    executable: /bin/bash
-  changed_when: "'created' in secret_check.stdout or secret_check.rc == 0"
-  register: secret_check
-
-- name: Restart argocd-server
-  ansible.builtin.shell: kubectl -n argocd rollout restart deployment argocd-server
-  become: true
-  become_user: ubuntu
-  args:
-    executable: /bin/bash
-
 - name: Apply traefik routes manifest for ArgoCD
   become: true
   become_user: ubuntu
   ansible.builtin.shell: |
-    kubectl apply -n argocd -f {{ temp_path }}/argocd-dashboard-route.yaml
+    kubectl apply -n argocd -f {{ temp_path }}/argocd/argocd-dashboard-route.yaml
   args:
     executable: /bin/bash
 
@@ -48,7 +30,8 @@
   become_user: ubuntu
 
 - name: Get ArgoCD initial admin password
-  ansible.builtin.shell: kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode
+  ansible.builtin.shell: |
+    kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode
   register: argocd_admin_password_raw
   args:
     executable: /bin/bash
@@ -58,3 +41,17 @@
 - name: Show ArgoCD initial admin password
   ansible.builtin.debug:
     msg: "ArgoCD initial admin password is: {{ argocd_admin_password_raw.stdout }}"
+
+- name: Render ArgoCD Root application manifest
+  ansible.builtin.template:
+    src: "files/argocd/root-template.yml"
+    dest: "{{ temp_path }}/argocd/root.yml"
+    mode: "0644"
+
+- name: Deploy ArgoCD Root application
+  become: true
+  become_user: ubuntu
+  ansible.builtin.shell: |
+    kubectl apply -f {{ temp_path }}/argocd/root.yml
+  args:
+    executable: /bin/bash

@@ -1,3 +1,22 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: repo-github-homeserver
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/secret-type: repository
+type: Opaque
+stringData:
+  name: "Github: HomeServer"
+  type: "git"
+  project: "default"
+  url: "git@github.com:yurii-vasylchuk/homeserver.git"
+  username: "yurii-vasylchuk"
+  sshPrivateKey: |
+    {{ github.sshKey | indent(4) }}
+
+---
+
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
