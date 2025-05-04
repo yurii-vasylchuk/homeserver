@@ -13,9 +13,8 @@ spec:
     namespace: vault
 
   source:
-    chart: "vault"
-    repoURL: "https://helm.releases.hashicorp.com"
-    targetRevision: "0.30.0"
+    repoURL: "git@github.com:yurii-vasylchuk/homeserver.git"
+    path: "argocd/helm/vault"
     helm:
       valuesObject:
         ui:
