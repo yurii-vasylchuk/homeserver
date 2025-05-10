@@ -2,4 +2,4 @@
 
 ansible/inventory/host_vars/myserver.yml
 
-temp
+/temp
