@@ -23,7 +23,7 @@ spec:
       kind: Rule
       services:
         - name: traefik
-          port: 443
+          port: 8080
       middlewares:
         - name: dashboard-auth
   tls:
