@@ -1,0 +1,19 @@
+apiVersion: longhorn.io/v1beta2
+kind: Node
+metadata:
+  name: home-server
+  namespace: longhorn
+spec:
+  disks:
+    /var/lib/longhorn:
+      path: /var/lib/longhorn
+      allowScheduling: true
+      tags:
+        - ssd
+      storageReserved: 53687091200
+    /mnt/external-hdd:
+      path: /mnt/external-hdd
+      allowScheduling: true
+      tags:
+        - hdd
+      storageReserved: 53687091200
