@@ -1,0 +1,74 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: longhorn-auth
+  namespace: longhorn
+spec:
+  basicAuth:
+    secret: longhorn-dashboard-auth
+    realm: "Longhorn Dashboard"
+
+---
+
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-ingressroute
+  namespace: longhorn
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`longhorn.yuriivasylchuk.org.ua`)
+      kind: Rule
+      services:
+        - name: traefik
+          port: 8080
+      middlewares:
+        - name: longhorn-auth
+  tls:
+    certResolver: letsencrypt
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: noop-svc
+  namespace: kube-system
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  clusterIP: None
+
+---
+
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-to-https
+  namespace: kube-system
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true
+
+---
+
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: redirect-http-longhorn
+  namespace: longhorn
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`longhorn.yuriivasylchuk.org.ua`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-https
+      services:
+        - name: noop-svc
+          port: 80
