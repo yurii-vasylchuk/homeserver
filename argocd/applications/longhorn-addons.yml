@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: longhorn
+  name: longhorn-addons
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -13,7 +13,7 @@ spec:
     namespace: longhorn
 
   source:
-    path: "argocd/helm/pfcalc"
+    path: "argocd/helm/longhorn-addons"
     repoURL: "git@github.com:yurii-vasylchuk/homeserver.git"
 
   syncPolicy:
