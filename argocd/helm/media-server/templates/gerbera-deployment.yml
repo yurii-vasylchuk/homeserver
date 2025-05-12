@@ -22,13 +22,13 @@ spec:
           volumeMounts:
             - name: media
               mountPath: "/mnt/content"
-{{/*            - name: config*/}}
-{{/*              mountPath: "/var/run/gerbera/config.xml"*/}}
-{{/*              readOnly: true*/}}
+            - name: config
+              mountPath: "/var/run/gerbera/config.xml"
+              readOnly: true
       volumes:
         - name: media
           persistentVolumeClaim:
-            claimName: media-pvc
-{{/*        - name: config*/}}
-{{/*          configMap:*/}}
-{{/*            name: gerbera-config*/}}
+            claimName: {{ .Values.persistence.pvcName }}
+        - name: config
+          configMap:
+            name: gerbera-config

@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transmission-flood
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: transmission-flood
+  template:
+    metadata:
+      labels:
+        app: transmission-flood
+    spec:
+      containers:
+        - name: transmission
+          image: {{ .Values.transmission.image }}
+          ports:
+            - containerPort: {{ .Values.transmission.rpcPort }}
+          env:
+            - name: USER
+              value: "{{ .Values.transmission.env.USER }}"
+            - name: PASS
+              value: "{{ .Values.transmission.env.PASS }}"
+          volumeMounts:
+            - name: data
+              mountPath: /downloads
+
+        - name: flood
+          image: {{ .Values.flood.image }}
+          ports:
+            - containerPort: {{ .Values.flood.port }}
+          env:
+            - name: FLOOD_OPTION_host
+              value: "0.0.0.0"
+            - name: FLOOD_OPTION_port
+              value: "{{ .Values.flood.port }}"
+            - name: FLOOD_OPTION_transmission_host
+              value: "localhost"
+            - name: FLOOD_OPTION_transmission_port
+              value: "{{ .Values.transmission.rpcPort }}"
+          volumeMounts:
+            - name: data
+              mountPath: /downloads
+
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.pvcName }}

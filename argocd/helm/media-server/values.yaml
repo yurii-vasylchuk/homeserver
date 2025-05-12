@@ -7,5 +7,17 @@ gerbera:
   port: 49494
 
 persistence:
+  pvcName: media-pvc
   accessMode: ReadWriteMany
   size: 500Gi
+
+flood:
+  image: jesec/flood:4.9.3
+  port: 3000
+
+transmission:
+  image: linuxserver/transmission:4.0.6
+  rpcPort: 9091
+  env:
+    USER: admin
+    PASS: adminpass

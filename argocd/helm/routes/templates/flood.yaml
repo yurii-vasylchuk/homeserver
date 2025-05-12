@@ -1,0 +1,51 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: torrent-auth
+  namespace: media-server
+spec:
+  basicAuth:
+    secret: torrent-auth
+    realm: "Media Server: Torrent"
+
+---
+
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: torrent-ingressroute
+  namespace: media-server
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`torrent.yuriivasylchuk.org.ua`)
+      kind: Rule
+      services:
+        - name: transmission-flood
+          port: 80
+      middlewares:
+        - name: torrent-auth
+  tls:
+    certResolver: letsencrypt
+
+---
+
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: redirect-http-torrent
+  namespace: media-server
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`torrent.yuriivasylchuk.org.ua`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-https
+          namespace: kube-system
+      services:
+        - name: noop-svc
+          namespace: kube-system
+          port: 80
