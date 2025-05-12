@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gerbera
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gerbera
+  template:
+    metadata:
+      labels:
+        app: gerbera
+    spec:
+      hostNetwork: true
+      containers:
+        - name: gerbera
+          image: "{{ .Values.gerbera.image.repository }}:{{ .Values.gerbera.image.version }}"
+          imagePullPolicy: {{ .Values.gerbera.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.gerbera.port }}
+          volumeMounts:
+            - name: media
+              mountPath: "/mnt/content"
+{{/*            - name: config*/}}
+{{/*              mountPath: "/var/run/gerbera/config.xml"*/}}
+{{/*              readOnly: true*/}}
+      volumes:
+        - name: media
+          persistentVolumeClaim:
+            claimName: media-pvc
+{{/*        - name: config*/}}
+{{/*          configMap:*/}}
+{{/*            name: gerbera-config*/}}

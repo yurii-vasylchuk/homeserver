@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gerbera
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+
+  destination:
+    name: in-cluster
+    namespace: media-server
+
+  source:
+    repoURL: "git@github.com:yurii-vasylchuk/homeserver.git"
+    path: "argocd/helm/media-server"
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true

@@ -27,7 +27,7 @@ spec:
           nfsBackingImageEnabled: true
 
           persistence:
-            defaultClass: false
+            defaultClass: true
             defaultClassReplicaCount: 1
             enableRWX: true
             reclaimPolicy: Delete

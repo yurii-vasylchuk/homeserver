@@ -1,0 +1,11 @@
+gerbera:
+  image:
+    repository: gerbera/gerbera
+    pullPolicy: IfNotPresent
+    version: "2.5.0"
+
+  port: 49494
+
+persistence:
+  accessMode: ReadWriteMany
+  size: 500Gi
