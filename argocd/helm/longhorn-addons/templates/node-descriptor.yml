@@ -5,13 +5,15 @@ metadata:
   namespace: longhorn
 spec:
   disks:
-    /var/lib/longhorn:
+    longhorn-ssd:
+      diskDriver: auto
       path: /var/lib/longhorn
       allowScheduling: true
       tags:
         - ssd
       storageReserved: 53687091200
-    /mnt/external-hdd:
+    longhorn-hdd:
+      diskDriver: auto
       path: /mnt/external-hdd
       allowScheduling: true
       tags:
