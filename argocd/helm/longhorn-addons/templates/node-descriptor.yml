@@ -6,14 +6,12 @@ metadata:
 spec:
   disks:
     longhorn-ssd:
-      diskDriver: auto
       path: /var/lib/longhorn
       allowScheduling: true
       tags:
         - ssd
       storageReserved: 53687091200
     longhorn-hdd:
-      diskDriver: auto
       path: /mnt/external-hdd
       allowScheduling: true
       tags:
