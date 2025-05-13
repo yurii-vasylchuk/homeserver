@@ -35,10 +35,14 @@ spec:
               value: "0.0.0.0"
             - name: FLOOD_OPTION_port
               value: "{{ .Values.flood.port }}"
-            - name: FLOOD_OPTION_transmission_host
-              value: "localhost"
-            - name: FLOOD_OPTION_transmission_port
-              value: "{{ .Values.transmission.rpcPort }}"
+            - name: FLOOD_OPTION_trurl
+              value: "localhost:{{ .Values.transmission.rpcPort}}/transmission/rpc"
+            - name: FLOOD_OPTION_truser
+              value: "{{ .Values.transmission.env.USER }}"
+            - name: FLOOD_OPTION_trpass
+              value: "{{ .Values.transmission.env.PASS }}"
+            - name: FLOOD_OPTION_auth
+              value: none
           volumeMounts:
             - name: data
               mountPath: /downloads
