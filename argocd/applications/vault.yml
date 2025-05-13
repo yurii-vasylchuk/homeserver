@@ -22,6 +22,8 @@ spec:
           enabled: true
         namespace: vault
   syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
     automated:
       prune: true
       selfHeal: true
