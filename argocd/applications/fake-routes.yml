@@ -8,13 +8,15 @@ metadata:
 spec:
   destination:
     name: in-cluster
-    namespace: default
+    namespace: fake-routes
   project: default
   source:
     path: argocd/helm/fake-routes
     repoURL: git@github.com:yurii-vasylchuk/homeserver.git
     targetRevision: HEAD
   syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
     automated:
       prune: true
       selfHeal: true
