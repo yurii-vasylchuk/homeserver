@@ -11,6 +11,7 @@ spec:
       kind: Rule
       services:
         - name: vault-ui
+          port: 8200
   tls:
     certResolver: letsencrypt
 
