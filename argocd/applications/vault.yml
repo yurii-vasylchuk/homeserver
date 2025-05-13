@@ -13,12 +13,13 @@ spec:
     namespace: vault
 
   source:
-    repoURL: "git@github.com:yurii-vasylchuk/homeserver.git"
-    path: "argocd/helm/vault"
+    repoURL: "https://helm.releases.hashicorp.com"
+    chart: "vault"
     helm:
       valuesObject:
         ui:
           enabled: true
+        namespace: vault
   syncPolicy:
     automated:
       prune: true
