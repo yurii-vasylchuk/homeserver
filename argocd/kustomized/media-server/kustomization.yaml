@@ -5,10 +5,10 @@ metadata:
 
 resources:
   - media-storage.yaml
-  - jellyfin-config-storage.yaml
-  - jellyfin-deployment.yaml
-  - jellyfin-service.yaml
-  - jellyfin-ingress-route.yaml
+  - gerbera-configmap.yaml
+  - gerbera-deployment.yml
+  - gerbera-service.yaml
+  - gerbera-ingress-route.yaml
   - qbittorrent-config-storage.yaml
   - qbittorrent-deployment.yaml
   - qbittorrent-service.yaml

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gerbera
+  namespace: media-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gerbera
+  template:
+    metadata:
+      labels:
+        app: gerbera
+    spec:
+      hostNetwork: true
+      containers:
+        - name: gerbera
+          image: "gerbera/gerbera:2.5.0"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 49494
+          volumeMounts:
+            - name: media
+              mountPath: "/mnt/content"
+      volumes:
+        - name: media
+          persistentVolumeClaim:
+            claimName: media-pvc
+        - name: config
+          configMap:
+            name: gerbera-config
