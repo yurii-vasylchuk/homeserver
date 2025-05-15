@@ -21,6 +21,12 @@ spec:
         ui:
           enabled: true
         namespace: vault
+        ha:
+          enabled: false
+        dataStorage:
+          enabled: true
+          size: 5Gi
+          storageClass: local-path
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
