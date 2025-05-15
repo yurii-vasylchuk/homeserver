@@ -30,6 +30,8 @@ spec:
               name: media
             - mountPath: /config
               name: qbittorrent-config
+            - name: webui
+              mountPath: /config/data/webui
       restartPolicy: Always
       volumes:
         - name: media
@@ -38,3 +40,7 @@ spec:
         - name: qbittorrent-config
           persistentVolumeClaim:
             claimName: qbittorrent-config
+        - name: webui
+          hostPath:
+            path: /home/ubuntu/webui
+            type: Directory
