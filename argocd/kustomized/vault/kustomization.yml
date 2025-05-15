@@ -1,0 +1,27 @@
+helmCharts:
+  - repo: https://helm.releases.hashicorp.com
+    releaseName: vault
+    name: vault
+    version: 0.30.0
+    namespace: vault
+    valuesInline:
+      valuesObject:
+        ui:
+          enabled: true
+        namespace: vault
+        ha:
+          enabled: false
+        dataStorage:
+          enabled: true
+          size: 5Gi
+          storageClass: longhorn
+
+  - repo: https://charts.external-secrets.io
+    releaseName: external-secrets
+    name: external-secrets
+    version: 0.16.2
+    namespace: vault
+
+resources:
+  - vault-dashboard-route.yaml
+  - vault-eso-config.yml
