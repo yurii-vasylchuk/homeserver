@@ -11,3 +11,9 @@ spec:
       tags:
         - hdd
       storageReserved: 53687091200
+    longhorn-ssd:
+      path: /var/lib/longhorn
+      allowScheduling: true
+      tags:
+        - ssd
+      storageReserved: 53687091200

@@ -1,0 +1,25 @@
+helmCharts:
+  - repo: https://charts.longhorn.io
+    releaseName: longhorn
+    version: 1.8.1
+    namespace: longhorn
+    valuesInline:
+      preUpgradeChecker:
+        jobEnabled: false
+      defaultSettings:
+        defaultDataPath: /var/lib/longhorn
+        defaultReplicaCount: 1
+        nfsBackingImageEnabled: true
+
+        persistence:
+          defaultClass: false
+          defaultClassReplicaCount: 1
+          enableRWX: true
+
+        csi:
+          attacherReplicaCount: 1
+          provisionerReplicaCount: 1
+resources:
+  - node-descriptor.yml
+  - storageclass-ssd.yaml
+  - storageclass-hdd.yaml
