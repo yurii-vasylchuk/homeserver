@@ -1,17 +1,17 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: jellyfin-ingressroute
+  name: gerbera-ingressroute
   namespace: media-server
 spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`jellyfin.yuriivasylchuk.org.ua`)
+    - match: Host(`gerbera.yuriivasylchuk.org.ua`)
       kind: Rule
       services:
-        - name: jellyfin-svc
-          port: 8096
+        - name: gerbera-svc
+          port: 49494
   tls:
     certResolver: letsencrypt
 
@@ -20,13 +20,13 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: redirect-http-jellyfin
+  name: redirect-http-gerbera
   namespace: media-server
 spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`jellyfin.yuriivasylchuk.org.ua`)
+    - match: Host(`gerbera.yuriivasylchuk.org.ua`)
       kind: Rule
       middlewares:
         - name: redirect-to-https
