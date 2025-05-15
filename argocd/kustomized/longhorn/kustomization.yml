@@ -8,21 +8,21 @@ helmCharts:
       preUpgradeChecker:
         jobEnabled: false
       defaultSettings:
-        createDefaultDiskLabeledNodes: false
         defaultDataPath: /var/lib/longhorn
         defaultReplicaCount: 1
-        nfsBackingImageEnabled: true
 
         persistence:
-          defaultClass: false
+          defaultClass: true
           defaultClassReplicaCount: 1
-          enableRWX: true
+          reclaimPolicy: Retain
 
         csi:
           attacherReplicaCount: 1
           provisionerReplicaCount: 1
+          resizerReplicaCount: 1
+          snapshotterReplicaCount: 1
+
 resources:
   - node-descriptor.yml
-  - storageclass-ssd.yaml
   - storageclass-hdd.yaml
   - longhorn-dashboard-route.yaml
