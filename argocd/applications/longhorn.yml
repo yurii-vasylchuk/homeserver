@@ -13,7 +13,8 @@ spec:
     namespace: longhorn
 
   source:
-    repoURL: https://charts.longhorn.io
+    repoURL: "git@github.com:yurii-vasylchuk/homeserver.git"
+    targetRevision: HEAD
     path: "argocd/kustomized/longhorn"
 
   syncPolicy:

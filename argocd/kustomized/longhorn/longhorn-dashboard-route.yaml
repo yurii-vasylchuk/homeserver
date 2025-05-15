@@ -1,0 +1,37 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-ingressroute
+  namespace: longhorn
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`longhorn.yuriivasylchuk.org.ua`)
+      kind: Rule
+      services:
+        - name: longhorn-frontend
+          port: 80
+  tls:
+    certResolver: letsencrypt
+
+---
+
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: redirect-http-longhorn
+  namespace: longhorn
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`longhorn.yuriivasylchuk.org.ua`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-https
+          namespace: kube-system
+      services:
+        - name: noop-svc
+          namespace: kube-system
+          port: 80
