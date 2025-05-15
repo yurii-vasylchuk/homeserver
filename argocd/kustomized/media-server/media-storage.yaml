@@ -5,9 +5,8 @@ metadata:
   namespace: media-server
 spec:
   storageClassName: longhorn-hdd
-  volumeName: media-pv
   accessModes:
-    - ReadOnlyMany
+    - ReadWriteMany
   resources:
     requests:
       storage: 500Gb
