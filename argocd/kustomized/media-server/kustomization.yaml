@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  namespace: media-server
+
+resources:
+  - media-storage.yaml
+  - jellyfin-config-storage.yaml
+  - jellyfin-deployment.yaml
+  - jellyfin-service.yaml
+  - jellyfin-ingress-route.yaml
+  - qbittorrent-config-storage.yaml
+  - qbittorrent-deployment.yaml
+  - qbittorrent-service.yaml
+  - qbittorrent-ingress-route.yaml
