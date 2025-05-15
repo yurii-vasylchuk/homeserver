@@ -10,7 +10,7 @@ spec:
     - match: Host(`vault.yuriivasylchuk.org.ua`)
       kind: Rule
       services:
-        - name: vault-ui
+        - name: vault
           port: 8200
   tls:
     certResolver: letsencrypt
