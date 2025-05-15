@@ -8,6 +8,7 @@ helmCharts:
       preUpgradeChecker:
         jobEnabled: false
       defaultSettings:
+        createDefaultDiskLabeledNodes: false
         defaultDataPath: /var/lib/longhorn
         defaultReplicaCount: 1
         nfsBackingImageEnabled: true
