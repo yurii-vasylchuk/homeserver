@@ -33,4 +33,4 @@ helmCharts:
 resources:
   - keycloak-admin-externalsecret.yaml
   - keycloak-pg-user-externalsecret.yaml
-#  - keycloak-dashboard-route.yaml
+  - keycloak-dashboard-route.yaml

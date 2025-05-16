@@ -11,7 +11,7 @@ spec:
       kind: Rule
       services:
         - name: keycloak
-          port: 8200
+          port: 80
   tls:
     certResolver: letsencrypt
 
