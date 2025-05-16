@@ -9,7 +9,10 @@ helmCharts:
       service:
         type: ClusterIP
       auth:
+        adminUser: admin
         existingSecret: keycloak-admin-secret
+        passwordSecretKey: password
+
       ingress:
         enabled: false
       metrics:
