@@ -1,0 +1,32 @@
+helmCharts:
+  - repo: https://charts.bitnami.com/bitnami
+    releaseName: keycloak
+    name: keycloak
+    version: 22.0.4
+    namespace: vault
+    valuesInline:
+      valuesObject:
+        service:
+          type: ClusterIP
+        auth:
+          existingSecret: keycloak-admin-secret
+        ingress:
+          enabled: false
+        metrics:
+          enabled: true
+        postgresql:
+          enabled: false
+        resourcesPreset: small
+
+        externalDatabase:
+          host: postgres.postgres.svc.cluster.local
+          port: 5432
+          database: keycloak
+          user: keycloak
+          existingSecret: keycloak-pg-user-secret
+          existingSecretPasswordKey: password
+
+resources:
+  - keycloak-admin-externalsecret.yaml
+  - keycloak-pg-user-externalsecret.yaml
+#  - keycloak-dashboard-route.yaml
