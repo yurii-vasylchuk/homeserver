@@ -3,7 +3,7 @@ helmCharts:
     releaseName: keycloak
     name: keycloak
     version: 22.0.4
-    namespace: vault
+    namespace: keycloak
     valuesInline:
       valuesObject:
         service:
