@@ -1,7 +1,6 @@
 helmCharts:
   - repo: https://charts.bitnami.com/bitnami
-    releaseName: keycloak
-    name: keycloak
+    name: bitnami/keycloak
     version: 24.6.7
     namespace: keycloak
     valuesInline:
