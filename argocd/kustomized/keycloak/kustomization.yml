@@ -26,6 +26,7 @@ helmCharts:
           user: keycloak
           existingSecret: keycloak-pg-user-secret
           existingSecretPasswordKey: password
+          existingSecretUserKey: username
 
 resources:
   - keycloak-admin-externalsecret.yaml
