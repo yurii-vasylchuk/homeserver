@@ -1,32 +1,31 @@
 helmCharts:
-#  - repo: https://charts.bitnami.com/bitnami
+  #  - repo: https://charts.bitnami.com/bitnami
   - repo: oci://registry-1.docker.io/bitnamicharts
     name: keycloak
     releaseName: keycloak
     version: 24.6.7
     namespace: keycloak
     valuesInline:
-      valuesObject:
-        service:
-          type: ClusterIP
-        auth:
-          existingSecret: keycloak-admin-secret
-        ingress:
-          enabled: false
-        metrics:
-          enabled: true
-        postgresql:
-          enabled: false
-        resourcesPreset: small
+      service:
+        type: ClusterIP
+      auth:
+        existingSecret: keycloak-admin-secret
+      ingress:
+        enabled: false
+      metrics:
+        enabled: true
+      postgresql:
+        enabled: false
+      resourcesPreset: small
 
-        externalDatabase:
-          host: postgres.postgres.svc.cluster.local
-          port: 5432
-          database: keycloak
-          user: keycloak
-          existingSecret: keycloak-pg-user-secret
-          existingSecretPasswordKey: password
-          existingSecretUserKey: username
+      externalDatabase:
+        host: postgres.postgres.svc.cluster.local
+        port: 5432
+        database: keycloak
+        user: keycloak
+        existingSecret: keycloak-pg-user-secret
+        existingSecretPasswordKey: password
+        existingSecretUserKey: username
 
 resources:
   - keycloak-admin-externalsecret.yaml
