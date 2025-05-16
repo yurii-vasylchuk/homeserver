@@ -9,6 +9,9 @@ spec:
   routes:
     - match: Host(`gerbera.yuriivasylchuk.org.ua`)
       kind: Rule
+      middlewares:
+        - name: auth-middleware
+          namespace: keycloak
       services:
         - name: gerbera-svc
           port: 49494
