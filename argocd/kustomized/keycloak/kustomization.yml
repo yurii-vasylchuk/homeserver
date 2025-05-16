@@ -45,7 +45,7 @@ helmCharts:
       ingress:
         enabled: false
       extraArgs:
-        - "-provider=keycloak-oidc"
+        - "--provider=keycloak-oidc"
 
 resources:
   - keycloak-admin-externalsecret.yaml
