@@ -11,7 +11,7 @@ spec:
       auth:
         appRole:
           path: approle
-          roleId: "d5684649-4114-e93d-5694-8d8194fde49d"
+          roleId: "d119367c-2c7f-4dc5-479b-4df0066b60d7"
           secretRef:
             name: vault-eso-credentials
             namespace: vault
