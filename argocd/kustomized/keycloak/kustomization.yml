@@ -30,8 +30,25 @@ helmCharts:
         existingSecret: keycloak-pg-user-secret
         existingSecretPasswordKey: password
         existingSecretUserKey: username
+  - repo: oci://registry-1.docker.io/bitnamicharts
+    name: oauth2-proxy
+    releaseName: oauth2-proxy
+    version: 7.0.0
+    namespace: keycloak
+    valuesInline:
+      resourcesPreset: micro
+      configuration:
+        existingSecretName: oauth2-proxy-secret
+        provider: keycloak-oidc
+        oidcIssuerUrl: https://keycloak.yuriivasylchuk.org.ua/realms/homeserver
+        redirectUrl: https://oauth2.yuriivasylchuk.org.ua/oauth2/callback
+      ingress:
+        enabled: false
 
 resources:
   - keycloak-admin-externalsecret.yaml
   - keycloak-pg-user-externalsecret.yaml
   - keycloak-dashboard-route.yaml
+  - oauth2-proxy-externalsecret.yaml
+  - oauth2-proxy-ingressroute.yaml
+  - oauth2-auth-middleware.yaml
