@@ -1,5 +1,6 @@
 helmCharts:
-  - repo: https://charts.bitnami.com/bitnami
+#  - repo: https://charts.bitnami.com/bitnami
+  - repo: oci://registry-1.docker.io/bitnamicharts
     name: keycloak
     releaseName: keycloak
     version: 24.6.7
