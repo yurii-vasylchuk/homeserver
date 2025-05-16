@@ -40,10 +40,12 @@ helmCharts:
       configuration:
         existingSecretName: oauth2-proxy-secret
         provider: keycloak-oidc
-        oidcIssuerUrl: https://keycloak.yuriivasylchuk.org.ua/realms/homeserver
+        oidcIssuerUrl: https://keycloak.yuriivasylchuk.org.ua/realms/home-server
         redirectUrl: https://oauth2.yuriivasylchuk.org.ua/oauth2/callback
       ingress:
         enabled: false
+      extraArgs:
+        - "-provider=keycloak-oidc"
 
 resources:
   - keycloak-admin-externalsecret.yaml
