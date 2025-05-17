@@ -30,6 +30,7 @@ helmCharts:
         existingSecret: keycloak-pg-user-secret
         existingSecretPasswordKey: password
         existingSecretUserKey: username
+
   - repo: oci://registry-1.docker.io/bitnamicharts
     name: oauth2-proxy
     releaseName: oauth2-proxy
@@ -39,13 +40,13 @@ helmCharts:
       resourcesPreset: micro
       configuration:
         existingSecret: oauth2-proxy-secret
-        provider: keycloak-oidc
         oidcIssuerUrl: https://keycloak.yuriivasylchuk.org.ua/realms/home-server
         redirectUrl: https://oauth2.yuriivasylchuk.org.ua/oauth2/callback
       ingress:
         enabled: false
       extraArgs:
         - "--provider=keycloak-oidc"
+        - "--code-challenge-method=S256"
 
 resources:
   - keycloak-admin-externalsecret.yaml
