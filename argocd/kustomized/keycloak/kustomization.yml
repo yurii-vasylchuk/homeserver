@@ -31,6 +31,9 @@ helmCharts:
         existingSecretPasswordKey: password
         existingSecretUserKey: username
 
+      logging:
+        level: DEBUG
+
   - repo: oci://registry-1.docker.io/bitnamicharts
     name: oauth2-proxy
     releaseName: oauth2-proxy
