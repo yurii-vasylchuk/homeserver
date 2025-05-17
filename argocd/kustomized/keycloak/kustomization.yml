@@ -38,7 +38,7 @@ helmCharts:
     valuesInline:
       resourcesPreset: micro
       configuration:
-        existingSecretName: oauth2-proxy-secret
+        existingSecret: oauth2-proxy-secret
         provider: keycloak-oidc
         oidcIssuerUrl: https://keycloak.yuriivasylchuk.org.ua/realms/home-server
         redirectUrl: https://oauth2.yuriivasylchuk.org.ua/oauth2/callback
