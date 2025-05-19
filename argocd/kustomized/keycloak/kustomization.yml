@@ -60,6 +60,7 @@ helmCharts:
         - "--pass-user-headers=true"
         - "--pass-host-header=true"
         - "--cookie-name=session"
+        - "--email-domain=*"
 
 resources:
   - keycloak-admin-externalsecret.yaml
