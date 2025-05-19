@@ -50,6 +50,16 @@ helmCharts:
       extraArgs:
         - "--provider=keycloak-oidc"
         - "--code-challenge-method=S256"
+        - "--show-debug-on-error=true"
+        - "--silence-ping-logging=true"
+        - "--reverse-proxy=true"
+        - "--set-xauthrequest=true"
+        - "--pass-access-token=true"
+        - "--set-authorization-header=true"
+        - "--pass-authorization-header=true"
+        - "--pass-user-headers=true"
+        - "--pass-host-header=true"
+        - "--cookie-name=session"
 
 resources:
   - keycloak-admin-externalsecret.yaml
