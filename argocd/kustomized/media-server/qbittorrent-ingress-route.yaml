@@ -1,4 +1,21 @@
 apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: torrent-auto-login
+  namespace: media-server
+spec:
+  errors:
+    status:
+      - "401"
+    service:
+      name: oauth2-proxy
+      namespace: keycloak
+      port: 80
+    query: "/oauth2/start?rd=https://torrent.yuriivasylchuk.org.ua"
+
+---
+
+apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: qbittorrent-ingressroute
@@ -9,6 +26,11 @@ spec:
   routes:
     - match: Host(`torrent.yuriivasylchuk.org.ua`)
       kind: Rule
+      middlewares:
+        - name: auth-middleware
+          namespace: keycloak
+        - name: torrent-auto-login
+          namespace: media-server
       services:
         - name: qbittorrent-svc
           port: 8080
