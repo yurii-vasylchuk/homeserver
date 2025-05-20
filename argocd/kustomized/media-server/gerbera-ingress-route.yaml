@@ -1,17 +1,12 @@
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
-  name: gerbera-auto-login
+  name: gerbera-auth-middleware
   namespace: media-server
 spec:
-  errors:
-    status:
-      - "401"
-    service:
-      name: oauth2-proxy
-      namespace: keycloak
-      port: 80
-    query: "/oauth2/start?rd=https://gerbera.yuriivasylchuk.org.ua"
+  forwardAuth:
+    address: "https://oauth2.yuriivasylchuk.org.ua/oauth2/start?rd=https://gerbera.yuriivasylchuk.org.ua"
+    trustForwardHeader: true
 
 ---
 
@@ -27,9 +22,7 @@ spec:
     - match: Host(`gerbera.yuriivasylchuk.org.ua`)
       kind: Rule
       middlewares:
-        - name: auth-middleware
-          namespace: keycloak
-        - name: gerbera-auto-login
+        - name: gerbera-auth-middleware
           namespace: media-server
       services:
         - name: gerbera-svc
