@@ -57,7 +57,7 @@ helmCharts:
 
       configuration:
         clientID: "oauth2-proxy"
-        clientSecret: "LGNRt7FLejQz0nAxPiMzvUJpCC8JvlAV"
+        clientSecret: "uNlj1Vw4JfJhpqMToelFP1jK1gNM3kqj"
         cookieSecret: "6b8418a51be58db036032cfc53af6368"
 #        existingSecret: oauth2-proxy-secret
         oidcIssuerUrl: https://keycloak.yuriivasylchuk.org.ua/realms/home-server
