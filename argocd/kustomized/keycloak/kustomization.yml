@@ -56,10 +56,10 @@ helmCharts:
 
 
       configuration:
-        clientID: "oauth2-proxy"
-        clientSecret: "uNlj1Vw4JfJhpqMToelFP1jK1gNM3kqj"
-        cookieSecret: "6b8418a51be58db036032cfc53af6368"
-#        existingSecret: oauth2-proxy-secret
+#        clientID: "oauth2-proxy"
+#        clientSecret: "uNlj1Vw4JfJhpqMToelFP1jK1gNM3kqj"
+#        cookieSecret: "3hqXEqG8GyYlfGSI4fOkRi+Dd5JgcrQhFyyIx+T7Ydg="
+        existingSecret: oauth2-proxy-secret
         oidcIssuerUrl: https://keycloak.yuriivasylchuk.org.ua/realms/home-server
         redirectUrl: https://oauth2.yuriivasylchuk.org.ua/oauth2/callback
       ingress:
