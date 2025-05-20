@@ -45,17 +45,9 @@ helmCharts:
       redis:
         enabled: false
 
-      extraEnvVars:
-        - name: OAUTH2_PROXY_PASS_ACCESS_TOKEN
-          value: "true"
-        - name: OAUTH2_PROXY_SET_AUTHORIZATION_HEADER
-          value: "true"
-        - name: OAUTH2_PROXY_SKIP_PROVIDER_BUTTON
-          value: "true"
-        - name: OAUTH2_PROXY_COOKIE_SECURE
-          value: "true"
-        - name: OAUTH2_PROXY_COOKIE_SAMESITE
-          value: "lax"
+#      extraEnvVars:
+#        - name: OAUTH2_PROXY_SET_AUTHORIZATION_HEADER
+#          value: "true"
 
 
       configuration:
@@ -75,6 +67,8 @@ helmCharts:
         - "--set-xauthrequest=true"
         - "--whitelist-domain=.yuriivasylchuk.org.ua"
         - "--cookie-domain=.yuriivasylchuk.org.ua"
+        - "--cookie-samesite=none"
+        - "--cookie-secure=true"
 
 resources:
   - keycloak-admin-externalsecret.yaml
