@@ -41,26 +41,54 @@ helmCharts:
     namespace: keycloak
     valuesInline:
       resourcesPreset: micro
-      configuration:
-        existingSecret: oauth2-proxy-secret
-        oidcIssuerUrl: https://keycloak.yuriivasylchuk.org.ua/realms/home-server
-        redirectUrl: https://oauth2.yuriivasylchuk.org.ua/oauth2/callback
-      ingress:
-        enabled: false
-      extraArgs:
-        - "--provider=keycloak-oidc"
-        - "--code-challenge-method=S256"
-        - "--show-debug-on-error=true"
-        - "--silence-ping-logging=true"
-        - "--reverse-proxy=true"
-        - "--set-xauthrequest=true"
-        - "--pass-access-token=true"
-        - "--set-authorization-header=true"
-        - "--pass-authorization-header=true"
-        - "--pass-user-headers=true"
-        - "--pass-host-header=true"
-        - "--cookie-name=session"
-        - "--email-domain=*"
+
+      extraEnvVars:
+        - name: OAUTH2_PROXY_PROVIDER
+          value: oidc
+        - name: OAUTH2_PROXY_OIDC_ISSUER_URL
+          value: https://keycloak.yuriivasylchuk.org.ua/realms/home-server
+        - name: OAUTH2_PROXY_CLIENT_ID
+          value: oauth2-proxy
+        - name: OAUTH2_PROXY_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: oauth2-proxy-secret
+              key: client-secret
+        - name: OAUTH2_PROXY_REDIRECT_URL
+          value: https://oauth2.yuriivasylchuk.org.ua/oauth2/callback
+        - name: OAUTH2_PROXY_COOKIE_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: oauth2-proxy-secret
+              key: cookie-secret
+        - name: OAUTH2_PROXY_EMAIL_DOMAINS
+          value: "*"
+        - name: OAUTH2_PROXY_PASS_ACCESS_TOKEN
+          value: "true"
+        - name: OAUTH2_PROXY_SET_AUTHORIZATION_HEADER
+          value: "true"
+        - name: OAUTH2_PROXY_SKIP_PROVIDER_BUTTON
+          value: "true"
+        - name: OAUTH2_PROXY_COOKIE_SECURE
+          value: "true"
+        - name: OAUTH2_PROXY_COOKIE_SAMESITE
+          value: "lax"
+
+
+#      configuration:
+#        existingSecret: oauth2-proxy-secret
+#        oidcIssuerUrl: https://keycloak.yuriivasylchuk.org.ua/realms/home-server
+#        redirectUrl: https://oauth2.yuriivasylchuk.org.ua/oauth2/callback
+#      ingress:
+#        enabled: false
+#      extraArgs:
+#        - "--provider=keycloak-oidc"
+#        - "--code-challenge-method=S256"
+#        - "--show-debug-on-error=true"
+#        - "--silence-ping-logging=true"
+#        - "--reverse-proxy=true"
+#        - "--set-xauthrequest=true"
+#        - "--email-domain=*"
 
 resources:
   - keycloak-admin-externalsecret.yaml

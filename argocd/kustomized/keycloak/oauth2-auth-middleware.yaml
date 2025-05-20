@@ -7,6 +7,3 @@ spec:
   forwardAuth:
     address: "http://oauth2-proxy.keycloak.svc.cluster.local/oauth2/auth"
     trustForwardHeader: true
-    authResponseHeaders:
-      - X-Auth-Request-Email
-      - X-Auth-Request-User
