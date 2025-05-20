@@ -8,8 +8,12 @@ spec:
     address: "https://oauth2.yuriivasylchuk.org.ua/oauth2/start?rd=https://torrent.yuriivasylchuk.org.ua"
     trustForwardHeader: true
     authResponseHeaders:
-      - X-Auth-Request-Email
-      - Authorization
+      - "X-Auth-Request-User"
+      - "X-Auth-Request-Email"
+      - "Set-Cookie"
+      - "X-Auth-Request-Access-Token"
+      - "Authorization"
+      - "X-Auth-Request-Redirect"
 
 ---
 
