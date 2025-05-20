@@ -5,5 +5,8 @@ metadata:
   namespace: keycloak
 spec:
   forwardAuth:
-    address: "http://oauth2-proxy.keycloak.svc.cluster.local/oauth2/auth"
+    address: "https://oauth2.yuriivasylchuk.org.ua/oauth2/auth"
     trustForwardHeader: true
+    authResponseHeaders:
+      - X-Auth-Request-Email
+      - Authorization
