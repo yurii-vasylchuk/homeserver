@@ -43,26 +43,6 @@ helmCharts:
       resourcesPreset: micro
 
       extraEnvVars:
-        - name: OAUTH2_PROXY_PROVIDER
-          value: oidc
-        - name: OAUTH2_PROXY_OIDC_ISSUER_URL
-          value: https://keycloak.yuriivasylchuk.org.ua/realms/home-server
-        - name: OAUTH2_PROXY_CLIENT_ID
-          value: oauth2-proxy
-        - name: OAUTH2_PROXY_CLIENT_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: oauth2-proxy-secret
-              key: client-secret
-        - name: OAUTH2_PROXY_REDIRECT_URL
-          value: https://oauth2.yuriivasylchuk.org.ua/oauth2/callback
-        - name: OAUTH2_PROXY_COOKIE_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: oauth2-proxy-secret
-              key: cookie-secret
-        - name: OAUTH2_PROXY_EMAIL_DOMAINS
-          value: "*"
         - name: OAUTH2_PROXY_PASS_ACCESS_TOKEN
           value: "true"
         - name: OAUTH2_PROXY_SET_AUTHORIZATION_HEADER
@@ -75,20 +55,24 @@ helmCharts:
           value: "lax"
 
 
-#      configuration:
+      configuration:
+        clientID: "oauth2-proxy"
+        clientSecret: "LGNRt7FLejQz0nAxPiMzvUJpCC8JvlAV"
+        cookieSecret: "6b8418a51be58db036032cfc53af6368"
 #        existingSecret: oauth2-proxy-secret
-#        oidcIssuerUrl: https://keycloak.yuriivasylchuk.org.ua/realms/home-server
-#        redirectUrl: https://oauth2.yuriivasylchuk.org.ua/oauth2/callback
-#      ingress:
-#        enabled: false
-#      extraArgs:
-#        - "--provider=keycloak-oidc"
-#        - "--code-challenge-method=S256"
-#        - "--show-debug-on-error=true"
-#        - "--silence-ping-logging=true"
-#        - "--reverse-proxy=true"
-#        - "--set-xauthrequest=true"
-#        - "--email-domain=*"
+        oidcIssuerUrl: https://keycloak.yuriivasylchuk.org.ua/realms/home-server
+        redirectUrl: https://oauth2.yuriivasylchuk.org.ua/oauth2/callback
+      ingress:
+        enabled: false
+      extraArgs:
+        - "--provider=oidc"
+        - "--email-domain=*"
+        - "--code-challenge-method=S256"
+        - "--show-debug-on-error=true"
+        - "--pass-access-token"
+        - "--silence-ping-logging=true"
+        - "--reverse-proxy=true"
+        - "--set-xauthrequest=true"
 
 resources:
   - keycloak-admin-externalsecret.yaml
