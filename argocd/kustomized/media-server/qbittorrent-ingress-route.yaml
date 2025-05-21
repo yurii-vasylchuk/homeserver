@@ -27,7 +27,8 @@ spec:
   errors:
     status:
       - "401-403"
-    query: https://oauth2.yuriivasylchuk.org.ua/oauth2/start?rd=https://torrent.yuriivasylchuk.org.ua
+    query: /oauth2/start?rd=https://torrent.yuriivasylchuk.org.ua
+#    query: https://oauth2.yuriivasylchuk.org.ua/oauth2/start?rd=https://torrent.yuriivasylchuk.org.ua
     service:
       namespace: keycloak
       name: oauth2-proxy
@@ -47,9 +48,9 @@ spec:
     - match: Host(`torrent.yuriivasylchuk.org.ua`)
       kind: Rule
       middlewares:
-        - name: torrent-auth-middleware
-          namespace: media-server
         - name: torrent-auth-autologin
+          namespace: media-server
+        - name: torrent-auth-middleware
           namespace: media-server
       services:
         - name: qbittorrent-svc
