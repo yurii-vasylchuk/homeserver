@@ -27,6 +27,12 @@ spec:
   entryPoints:
     - websecure
   routes:
+    - match: Host(`gerbera.yuriivasylchuk.org.ua`) && PathPrefix(`/oauth2`)
+      kind: Rule
+      services:
+        - name: oauth2-proxy
+          namespace: keycloak
+          port: 80
     - match: Host(`gerbera.yuriivasylchuk.org.ua`)
       kind: Rule
       middlewares:
