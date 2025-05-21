@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`oauth2.yuriivasylchuk.org.ua`)
+    - match: Host(`oauth2.yuriivasylchuk.org.ua`) || PathPrefix(`/oauth2/`)
       kind: Rule
       services:
         - name: oauth2-proxy
