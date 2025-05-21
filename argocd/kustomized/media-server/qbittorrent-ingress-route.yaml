@@ -5,7 +5,8 @@ metadata:
   namespace: media-server
 spec:
   forwardAuth:
-    address: "https://oauth2.yuriivasylchuk.org.ua/oauth2/start?rd=https://torrent.yuriivasylchuk.org.ua"
+#    address: "https://oauth2.yuriivasylchuk.org.ua/oauth2/start?rd=https://torrent.yuriivasylchuk.org.ua"
+    address: https://oauth2.yuriivasylchuk.org.ua/oauth2/auth
     trustForwardHeader: true
     authResponseHeaders:
       - "X-Auth-Request-User"
@@ -14,6 +15,23 @@ spec:
       - "X-Auth-Request-Access-Token"
       - "Authorization"
       - "X-Auth-Request-Redirect"
+
+---
+
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: torrent-auth-autologin
+  namespace: media-server
+spec:
+  errors:
+    status:
+      - "401-403"
+    query: /oauth2/start?rd=https://torrent.yuriivasylchuk.org.ua
+    service:
+      namespace: keycloak
+      name: oauth2-proxy
+      port: 80
 
 ---
 
@@ -30,6 +48,8 @@ spec:
       kind: Rule
       middlewares:
         - name: torrent-auth-middleware
+          namespace: media-server
+        - name: torrent-auth-autologin
           namespace: media-server
       services:
         - name: qbittorrent-svc
