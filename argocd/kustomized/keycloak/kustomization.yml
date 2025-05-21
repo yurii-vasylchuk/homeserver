@@ -76,4 +76,4 @@ resources:
   - keycloak-dashboard-route.yaml
   - oauth2-proxy-externalsecret.yaml
   - oauth2-proxy-ingressroute.yaml
-  - oauth2-auth-middleware.yaml
+#  - oauth2-auth-middleware.yaml
