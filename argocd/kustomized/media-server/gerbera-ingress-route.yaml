@@ -5,8 +5,7 @@ metadata:
   namespace: media-server
 spec:
   forwardAuth:
-#    address: "https://oauth2.yuriivasylchuk.org.ua?rd=https://gerbera.yuriivasylchuk.org.ua"
-    address: "https://oauth2.yuriivasylchuk.org.ua/oauth2/?rd=https://gerbera.yuriivasylchuk.org.ua"
+    address: "https://oauth2.yuriivasylchuk.org.ua/oauth2/auth/?rd=https://gerbera.yuriivasylchuk.org.ua"
     trustForwardHeader: true
     authResponseHeaders:
       - "X-Auth-Request-User"
@@ -29,13 +28,6 @@ spec:
   entryPoints:
     - websecure
   routes:
-#    - match: Host(`gerbera.yuriivasylchuk.org.ua`) && PathPrefix(`/oauth2`)
-#      kind: Rule
-#      services:
-#        - name: oauth2-proxy
-#          namespace: keycloak
-#          port: 80
-#    - match: Host(`gerbera.yuriivasylchuk.org.ua`) && PathPrefix(`/`) && (!PathPrefix(`/oauth2`))
     - match: Host(`gerbera.yuriivasylchuk.org.ua`)
       kind: Rule
       middlewares:
