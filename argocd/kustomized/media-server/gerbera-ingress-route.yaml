@@ -5,8 +5,8 @@ metadata:
   namespace: media-server
 spec:
   forwardAuth:
-    address: "https://oauth2.yuriivasylchuk.org.ua?rd=https://gerbera.yuriivasylchuk.org.ua"
-#    address: "https://oauth2.yuriivasylchuk.org.ua/?rd=https://gerbera.yuriivasylchuk.org.ua"
+#    address: "https://oauth2.yuriivasylchuk.org.ua?rd=https://gerbera.yuriivasylchuk.org.ua"
+    address: "https://oauth2.yuriivasylchuk.org.ua/?rd=https://gerbera.yuriivasylchuk.org.ua"
     trustForwardHeader: true
     authResponseHeaders:
       - "X-Auth-Request-User"
