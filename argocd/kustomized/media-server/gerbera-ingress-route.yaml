@@ -5,8 +5,7 @@ metadata:
   namespace: media-server
 spec:
   forwardAuth:
-    address: "https://oauth2.yuriivasylchuk.org.ua/"
-#    address: "https://oauth2.yuriivasylchuk.org.ua/oauth2/auth/"
+    address: "https://oauth2.yuriivasylchuk.org.ua/oauth2/auth/"
     trustForwardHeader: true
     authResponseHeaders:
       - "X-Auth-Request-User"
