@@ -5,7 +5,7 @@ metadata:
   namespace: keycloak
 spec:
   forwardAuth:
-    address: "https://oauth2.yuriivasylchuk.org.ua/"
+    address: "https://oauth2.yuriivasylchuk.org.ua/oauth/"
     trustForwardHeader: true
     authResponseHeaders:
       - "X-Auth-Request-User"
