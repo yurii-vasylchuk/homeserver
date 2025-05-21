@@ -23,6 +23,8 @@ kind: IngressRoute
 metadata:
   name: gerbera-ingressroute
   namespace: media-server
+  annotations:
+    traefik.ingress.kubernetes.io/accesslog: "true"
 spec:
   entryPoints:
     - websecure
@@ -33,7 +35,7 @@ spec:
         - name: oauth2-proxy
           namespace: keycloak
           port: 80
-    - match: Host(`gerbera.yuriivasylchuk.org.ua`)
+    - match: Host(`gerbera.yuriivasylchuk.org.ua`) && !PathPrefix(`/oauth2`)
       kind: Rule
       middlewares:
         - name: gerbera-auth-middleware
