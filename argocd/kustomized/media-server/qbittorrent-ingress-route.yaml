@@ -27,7 +27,7 @@ spec:
   errors:
     status:
       - "401-403"
-    query: /oauth2/start?rd=https://torrent.yuriivasylchuk.org.ua
+    query: https://oauth2.yuriivasylchuk.org.ua/oauth2/start?rd=https://torrent.yuriivasylchuk.org.ua
     service:
       namespace: keycloak
       name: oauth2-proxy
