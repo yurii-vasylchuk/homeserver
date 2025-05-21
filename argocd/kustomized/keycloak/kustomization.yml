@@ -61,6 +61,7 @@ helmCharts:
         - "--email-domain=*"
         - "--code-challenge-method=S256"
         - "--show-debug-on-error=true"
+        - "--skip-provider-button=true"
         - "--pass-access-token=true"
         - "--silence-ping-logging=true"
         - "--reverse-proxy=true"
