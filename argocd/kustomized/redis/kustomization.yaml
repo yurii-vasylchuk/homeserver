@@ -16,7 +16,7 @@ helmCharts:
         existingSecretPasswordKey: "password"
 
         acl:
-          enabled: true
+          enabled: false
           users:
             - username: "authelia"
               enabled: "on"
