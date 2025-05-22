@@ -8,7 +8,10 @@ helmCharts:
       global:
         defaultStorageClass: "local-path"
       architecture: standalone
+
       auth:
+        usePasswordFiles: false
+        enabled: true
         existingSecret: "redis-auth-secret"
         existingSecretPasswordKey: "password"
 
