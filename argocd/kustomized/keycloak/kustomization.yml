@@ -34,47 +34,47 @@ helmCharts:
       logging:
         level: DEBUG
 
-  - repo: oci://registry-1.docker.io/bitnamicharts
-    name: oauth2-proxy
-    releaseName: oauth2-proxy
-    version: 7.0.0
-    namespace: keycloak
-    valuesInline:
-      resourcesPreset: micro
-
-      redis:
-        enabled: false
-
-#      extraEnvVars:
-#        - name: OAUTH2_PROXY_SET_AUTHORIZATION_HEADER
-#          value: "true"
-
-
-      configuration:
-        existingSecret: oauth2-proxy-secret
-        oidcIssuerUrl: https://keycloak.yuriivasylchuk.org.ua/realms/home-server
-        redirectUrl: https://oauth2.yuriivasylchuk.org.ua/oauth2/callback
-      ingress:
-        enabled: false
-      extraArgs:
-        - "--provider=oidc"
-        - "--email-domain=*"
-        - "--code-challenge-method=S256"
-        - "--show-debug-on-error=true"
-        - "--skip-provider-button=true"
-        - "--pass-access-token=true"
-        - "--silence-ping-logging=true"
-        - "--reverse-proxy=true"
-        - "--set-xauthrequest=true"
-        - "--whitelist-domain=.yuriivasylchuk.org.ua"
-        - "--cookie-domain=.yuriivasylchuk.org.ua"
-        - "--cookie-samesite=none"
-        - "--cookie-secure=true"
+#  - repo: oci://registry-1.docker.io/bitnamicharts
+#    name: oauth2-proxy
+#    releaseName: oauth2-proxy
+#    version: 7.0.0
+#    namespace: keycloak
+#    valuesInline:
+#      resourcesPreset: micro
+#
+#      redis:
+#        enabled: false
+#
+##      extraEnvVars:
+##        - name: OAUTH2_PROXY_SET_AUTHORIZATION_HEADER
+##          value: "true"
+#
+#
+#      configuration:
+#        existingSecret: oauth2-proxy-secret
+#        oidcIssuerUrl: https://keycloak.yuriivasylchuk.org.ua/realms/home-server
+#        redirectUrl: https://oauth2.yuriivasylchuk.org.ua/oauth2/callback
+#      ingress:
+#        enabled: false
+#      extraArgs:
+#        - "--provider=oidc"
+#        - "--email-domain=*"
+#        - "--code-challenge-method=S256"
+#        - "--show-debug-on-error=true"
+#        - "--skip-provider-button=true"
+#        - "--pass-access-token=true"
+#        - "--silence-ping-logging=true"
+#        - "--reverse-proxy=true"
+#        - "--set-xauthrequest=true"
+#        - "--whitelist-domain=.yuriivasylchuk.org.ua"
+#        - "--cookie-domain=.yuriivasylchuk.org.ua"
+#        - "--cookie-samesite=none"
+#        - "--cookie-secure=true"
 
 resources:
   - keycloak-admin-externalsecret.yaml
   - keycloak-pg-user-externalsecret.yaml
   - keycloak-dashboard-route.yaml
-  - oauth2-proxy-externalsecret.yaml
-  - oauth2-proxy-ingressroute.yaml
+#  - oauth2-proxy-externalsecret.yaml
+#  - oauth2-proxy-ingressroute.yaml
 #  - oauth2-auth-middleware.yaml

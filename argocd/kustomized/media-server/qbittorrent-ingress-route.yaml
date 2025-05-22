@@ -26,11 +26,11 @@ spec:
   routes:
     - match: Host(`torrent.yuriivasylchuk.org.ua`)
       kind: Rule
-      middlewares:
+#      middlewares:
 #        - name: torrent-auth-autologin
 #          namespace: media-server
-        - name: auth-middleware
-          namespace: keycloak
+#        - name: auth-middleware
+#          namespace: keycloak
       services:
         - name: qbittorrent-svc
           port: 8080
