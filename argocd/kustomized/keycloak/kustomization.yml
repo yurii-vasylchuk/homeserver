@@ -32,7 +32,7 @@ helmCharts:
         existingSecretUserKey: username
 
       logging:
-        level: DEBUG
+        level: INFO
 
 #  - repo: oci://registry-1.docker.io/bitnamicharts
 #    name: oauth2-proxy
