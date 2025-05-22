@@ -1,0 +1,30 @@
+helmCharts:
+  - repo: oci://registry-1.docker.io/bitnamicharts
+    name: redis
+    releaseName: redis
+    version: 21.1.6
+    namespace: redis
+    valuesInline:
+      global:
+        defaultStorageClass: "local-path"
+      architecture: standalone
+      auth:
+        existingSecret: "redis-auth-secret"
+        existingSecretPasswordKey: "password"
+
+        acl:
+          enabled: true
+          users:
+            - username: "authelia"
+              enabled: "on"
+              commands: "+@all"
+              keys: "~authelia:*"
+          usersSecret: "redis-acl-secret"
+      master:
+        resourcesPreset: micro
+        persistentVolumeClaimRetentionPolicy:
+          enabled: true
+
+
+resources:
+  - redis-auth-external-secret.yaml
