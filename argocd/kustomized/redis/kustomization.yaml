@@ -19,9 +19,6 @@ helmCharts:
               enabled: "on"
               commands: "+@all"
               keys: "~authelia:*"
-            - username: default
-              commands: "+@all"
-              keys: "~*"
           usersSecret: "redis-acl-secret"
       master:
         resourcesPreset: micro
