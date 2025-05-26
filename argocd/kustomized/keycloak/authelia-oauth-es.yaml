@@ -1,0 +1,29 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: authelia-oauth-es
+  namespace: keycloak
+spec:
+  secretStoreRef:
+    name: vault-store
+    kind: ClusterSecretStore
+  target:
+    name: authelia
+    creationPolicy: Owner
+  data:
+    - secretKey: POSTGRES_PASSWORD
+      remoteRef:
+        key: kv/data/authelia/secret
+        property: postgres_password
+    - secretKey: JWT_SECRET
+      remoteRef:
+        key: kv/data/authelia/secret
+        property: jwt_secret
+    - secretKey: SESSION_SECRET
+      remoteRef:
+        key: kv/data/authelia/secret
+        property: session_secret
+    - secretKey: REDIS_PASSWORD
+      remoteRef:
+        key: kv/data/redis/auth
+        property: password

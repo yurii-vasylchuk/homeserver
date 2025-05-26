@@ -1,5 +1,4 @@
 helmCharts:
-  #  - repo: https://charts.bitnami.com/bitnami
   - repo: oci://registry-1.docker.io/bitnamicharts
     name: keycloak
     releaseName: keycloak
@@ -30,51 +29,48 @@ helmCharts:
         existingSecret: keycloak-pg-user-secret
         existingSecretPasswordKey: password
         existingSecretUserKey: username
-
       logging:
         level: INFO
 
-#  - repo: oci://registry-1.docker.io/bitnamicharts
-#    name: oauth2-proxy
-#    releaseName: oauth2-proxy
-#    version: 7.0.0
-#    namespace: keycloak
-#    valuesInline:
-#      resourcesPreset: micro
-#
-#      redis:
-#        enabled: false
-#
-##      extraEnvVars:
-##        - name: OAUTH2_PROXY_SET_AUTHORIZATION_HEADER
-##          value: "true"
-#
-#
-#      configuration:
-#        existingSecret: oauth2-proxy-secret
-#        oidcIssuerUrl: https://keycloak.yuriivasylchuk.org.ua/realms/home-server
-#        redirectUrl: https://oauth2.yuriivasylchuk.org.ua/oauth2/callback
-#      ingress:
-#        enabled: false
-#      extraArgs:
-#        - "--provider=oidc"
-#        - "--email-domain=*"
-#        - "--code-challenge-method=S256"
-#        - "--show-debug-on-error=true"
-#        - "--skip-provider-button=true"
-#        - "--pass-access-token=true"
-#        - "--silence-ping-logging=true"
-#        - "--reverse-proxy=true"
-#        - "--set-xauthrequest=true"
-#        - "--whitelist-domain=.yuriivasylchuk.org.ua"
-#        - "--cookie-domain=.yuriivasylchuk.org.ua"
-#        - "--cookie-samesite=none"
-#        - "--cookie-secure=true"
+  - repo: https://charts.authelia.com
+    name: authelia
+    releaseName: authelia
+    version: 0.10.10
+    namespace: keycloak
+    valuesInline:
+      secret:
+        existingSecret: 'authelia'
+      configMap:
+        server:
+          log:
+            level: debug
+        storage:
+          postgres:
+            enabled: true
+            address: 'tcp://postgres.postgres.svc.cluster.local:5432'
+        notifier:
+          filesystem:
+            enabled: true
+        authentication_backend:
+          ldap:
+            enabled: false
+          file:
+            enabled: true
+
+        session:
+          inactivity: '15 minutes'
+          cookies:
+            - domain: "yuriivasylchuk.org.ua"
+          redis:
+            enabled: true
+            deploy: false
+            host: "redis-master.redis.svc.cluster.local"
+            port: 6379
+            username: 'default'
 
 resources:
   - keycloak-admin-externalsecret.yaml
   - keycloak-pg-user-externalsecret.yaml
   - keycloak-dashboard-route.yaml
-#  - oauth2-proxy-externalsecret.yaml
-#  - oauth2-proxy-ingressroute.yaml
-#  - oauth2-auth-middleware.yaml
+  - authelia-oauth-es.yaml
+  - authelia-ingress-route.yaml
