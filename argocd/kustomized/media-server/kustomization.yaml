@@ -4,12 +4,10 @@ metadata:
   namespace: media-server
 
 resources:
-  - media-storage.yaml
   - gerbera-configmap.yaml
   - gerbera-deployment.yml
   - gerbera-service.yaml
   - gerbera-ingress-route.yaml
-  - qbittorrent-config-storage.yaml
   - qbittorrent-deployment.yaml
   - qbittorrent-service.yaml
   - qbittorrent-ingress-route.yaml
