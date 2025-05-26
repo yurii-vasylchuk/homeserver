@@ -38,8 +38,6 @@ spec:
           hostPath:
             type: Directory
             path: /mnt/external-hdd/media
-          persistentVolumeClaim:
-            claimName: media-pvc
         - name: qbittorrent-config
           persistentVolumeClaim:
             claimName: qbittorrent-config
