@@ -35,6 +35,9 @@ spec:
       restartPolicy: Always
       volumes:
         - name: media
+          hostPath:
+            type: Directory
+            path: /mnt/external-hdd/media
           persistentVolumeClaim:
             claimName: media-pvc
         - name: qbittorrent-config

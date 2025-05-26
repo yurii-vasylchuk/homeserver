@@ -25,8 +25,9 @@ spec:
               mountPath: "/mnt/content"
       volumes:
         - name: media
-          persistentVolumeClaim:
-            claimName: media-pvc
+          hostPath:
+            type: Directory
+            path: /mnt/external-hdd/media
         - name: config
           configMap:
             name: gerbera-config
