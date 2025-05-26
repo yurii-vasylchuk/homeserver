@@ -20,6 +20,14 @@ spec:
           env:
             - name: WEBUI_PORTS
               value: "8080/tcp,6881/udp"
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: UMASK
+              value: "002"
+            - name: TZ
+              value: "Etc/UTC"
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -39,8 +47,9 @@ spec:
             type: Directory
             path: /mnt/external-hdd/media
         - name: qbittorrent-config
-          persistentVolumeClaim:
-            claimName: qbittorrent-config
+          hostPath:
+            type: DirectoryOrCreate
+            path: /mnt/external-hdd/qbittorrent-config
         - name: webui
           hostPath:
             path: /home/ubuntu/webui
