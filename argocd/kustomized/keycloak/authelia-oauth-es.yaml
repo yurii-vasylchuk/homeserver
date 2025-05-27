@@ -23,10 +23,10 @@ spec:
       remoteRef:
         key: kv/data/authelia/secret
         property: jwt_secret
-    - secretKey: SESSION_SECRET
+    - secretKey: 'session.encryption.key'
       remoteRef:
         key: kv/data/authelia/secret
-        property: session_secret
+        property: 'session.encryption.key'
     - secretKey: REDIS_PASSWORD
       remoteRef:
         key: kv/data/redis/auth
