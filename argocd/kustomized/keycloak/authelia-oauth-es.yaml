@@ -11,6 +11,10 @@ spec:
     name: authelia
     creationPolicy: Owner
   data:
+    - secretKey: 'identity_validation.reset_password.jwt.hmac.key'
+      remoteRef:
+        key: kv/data/authelia/secret
+        property: 'identity_validation.reset_password.jwt.hmac.key'
     - secretKey: POSTGRES_PASSWORD
       remoteRef:
         key: kv/data/authelia/secret
