@@ -27,7 +27,7 @@ spec:
       remoteRef:
         key: kv/data/authelia/secret
         property: 'session.encryption.key'
-    - secretKey: REDIS_PASSWORD
+    - secretKey: 'session.redis.password.txt'
       remoteRef:
         key: kv/data/redis/auth
         property: password
