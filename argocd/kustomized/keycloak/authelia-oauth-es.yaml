@@ -15,10 +15,10 @@ spec:
       remoteRef:
         key: kv/data/authelia/secret
         property: 'identity_validation.reset_password.jwt.hmac.key'
-    - secretKey: POSTGRES_PASSWORD
+    - secretKey: 'storage.postgres.password.txt'
       remoteRef:
         key: kv/data/authelia/secret
-        property: postgres_password
+        property: 'storage.postgres.password.txt'
     - secretKey: JWT_SECRET
       remoteRef:
         key: kv/data/authelia/secret
