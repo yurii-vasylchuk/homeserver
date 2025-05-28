@@ -31,46 +31,47 @@ helmCharts:
         existingSecretUserKey: username
       logging:
         level: INFO
-
-  - repo: https://charts.authelia.com
-    name: authelia
-    releaseName: authelia
-    version: 0.10.10
+  - repo: https://oauth2-proxy.github.io/manifests
+    name: oauth2-proxy
+    version: 7.12.17
     namespace: keycloak
     valuesInline:
-      secret:
-        existingSecret: 'authelia'
-      configMap:
-        server:
-          log:
-            level: debug
-        storage:
-          postgres:
-            enabled: true
-            address: 'tcp://postgres.postgres.svc.cluster.local:5432'
-        notifier:
-          filesystem:
-            enabled: true
-        authentication_backend:
-          ldap:
-            enabled: false
-          file:
-            enabled: true
+      revisionHistoryLimit: 2
+      config:
+        existingSecret: oauth2-proxy
 
-        session:
-          inactivity: '15 minutes'
-          cookies:
-            - domain: "yuriivasylchuk.org.ua"
-          redis:
-            enabled: true
-            deploy: false
-            host: "redis-master.redis.svc.cluster.local"
-            port: 6379
-            username: 'default'
+        configFile: |-
+          reverse_proxy = true
+          upstreams: ["static://202"]
+
+          logging_compress = false
+          standard_logging = true
+          standard_logging_format = "[{{.Timestamp}}] [{{.File}}] {{.Message}}"
+          request_logging = true
+          request_logging_format = "{{.Client}} - {{.Username}} [{{.Timestamp}}] {{.Host}} {{.RequestMethod}} {{.Upstream}} {{.RequestURI}} {{.Protocol}} {{.UserAgent}} {{.StatusCode}} {{.ResponseSize}} {{.RequestDuration}}"
+          auth_logging = true
+          auth_logging_format = "{{.Client}} - {{.Username}} [{{.Timestamp}}] [{{.Status}}] {{.Message}}"
+
+          email_domains = [ "*" ]
+
+          pass_access_token = true
+
+      resources:
+        limits:
+          cpu: 200m
+          memory: 400Mi
+        requests:
+          cpu: 200m
+          memory: 400Mi
+
+      sessionStorage:
+        type: cookie
 
 resources:
   - keycloak-admin-externalsecret.yaml
   - keycloak-pg-user-externalsecret.yaml
   - keycloak-dashboard-route.yaml
-  - authelia-oauth-es.yaml
-  - authelia-ingress-route.yaml
+  - oauth2-proxy-externalsecret.yaml
+  - oauth2-proxy-ingressroute.yaml
+  - oauth2-proxy-auth-headers-middleware.yaml
+  - oauth2-proxy-auth-middleware.yaml

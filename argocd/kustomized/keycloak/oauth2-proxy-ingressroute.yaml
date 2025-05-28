@@ -7,8 +7,11 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`oauth2.yuriivasylchuk.org.ua`)
+    - match: "Host(`auth.yuriivasylchuk.org.ua`) && PathPrefix(`/`)"
       kind: Rule
+      middlewares:
+        - name: auth-headers
+          namespace: keycloak
       services:
         - name: oauth2-proxy
           namespace: keycloak
