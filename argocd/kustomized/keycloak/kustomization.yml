@@ -43,7 +43,7 @@ helmCharts:
 
         configFile: |-
           reverse_proxy = true
-          upstreams: ["static://202"]
+          upstreams = ["static://202"]
 
           logging_compress = false
           standard_logging = true
