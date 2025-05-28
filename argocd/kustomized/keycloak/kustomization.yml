@@ -35,6 +35,7 @@ helmCharts:
     name: oauth2-proxy
     version: 7.12.17
     namespace: keycloak
+    releaseName: oauth2-proxy
     valuesInline:
       revisionHistoryLimit: 2
       config:
