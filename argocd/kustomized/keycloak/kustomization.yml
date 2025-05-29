@@ -42,20 +42,25 @@ helmCharts:
         existingSecret: oauth2-proxy
 
         configFile: |-
-          reverse_proxy = true
-          upstreams = ["static://202"]
-          logging_compress = false
-          standard_logging = true
-          request_logging = true
-          auth_logging = true
-          email_domains = [ "*" ]
-          pass_access_token = true
-          oidc_issuer_url = "https://keycloak.yuriivasylchuk.org.ua/realms/home-server"
-          provider = "keycloak-oidc"
-          redirect_url = "https://auth.yuriivasylchuk.org.ua/oauth2/callback"
-          code_challenge_method = "S256"
-          cookie_domains = ["yuriivasylchuk.org.ua"]
+          reverse_proxy=true
+          upstreams="static://202"
+          
+          logging_compress=false
+          standard_logging=true
+          request_logging=true
+          auth_logging=true
+          
+          email_domains=[ "*" ]
+          pass_access_token=true
+          
+          provider="keycloak-oidc"
+          oidc_issuer_url="https://keycloak.yuriivasylchuk.org.ua/realms/home-server"
+          redirect_url="https://auth.yuriivasylchuk.org.ua/oauth2/callback"
+          code_challenge_method="S256"
+          
+          cookie_domains=["yuriivasylchuk.org.ua"]
           cookie_samesite="lax"
+          
           whitelist_domains=[".yuriivasylchuk.org.ua"]
       resources:
         limits:
