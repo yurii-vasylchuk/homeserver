@@ -62,8 +62,6 @@ helmCharts:
           cookie_samesite="lax"
           
           whitelist_domains=[".yuriivasylchuk.org.ua"]
-          
-          skip_provider_button=true
       resources:
         limits:
           cpu: 200m
