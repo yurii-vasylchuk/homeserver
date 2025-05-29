@@ -62,6 +62,8 @@ helmCharts:
           cookie_samesite="lax"
           
           whitelist_domains=[".yuriivasylchuk.org.ua"]
+          
+          skip_provider_button=true
       resources:
         limits:
           cpu: 200m
@@ -80,4 +82,4 @@ resources:
   - oauth2-proxy-externalsecret.yaml
   - oauth2-proxy-ingressroute.yaml
   - oauth2-proxy-auth-headers-middleware.yaml
-  - oauth2-proxy-auth-redirect-middleware.yaml
+#  - oauth2-proxy-auth-redirect-middleware.yaml

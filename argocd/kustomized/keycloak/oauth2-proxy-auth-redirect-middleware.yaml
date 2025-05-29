@@ -1,12 +1,14 @@
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
-  name: auth-redirect
-  namespace: keycloak
-spec:
-  forwardAuth:
-    address: "https://auth.yuriivasylchuk.org.ua?rd=https://torrent.yuriivasylchuk.org.ua"
-    trustForwardHeader: true
-    authResponseHeaders:
-      - X-Auth-Request-Access-Token
-      - Authorization
+## Just an example - you should create dedicated redirect middleware for each protected route with correct rd param
+
+#apiVersion: traefik.io/v1alpha1
+#kind: Middleware
+#metadata:
+#  name: auth-redirect
+#  namespace: keycloak
+#spec:
+#  forwardAuth:
+#    address: "https://auth.yuriivasylchuk.org.ua?rd=https://torrent.yuriivasylchuk.org.ua"
+#    trustForwardHeader: true
+#    authResponseHeaders:
+#      - X-Auth-Request-Access-Token
+#      - Authorization
