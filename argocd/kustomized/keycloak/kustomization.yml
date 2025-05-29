@@ -57,6 +57,8 @@ helmCharts:
           provider = "keycloak-oidc"
           redirect_url = "https://auth.yuriivasylchuk.org.ua/oauth2/callback"
           code_challenge_method = "S256"
+          cookie_domains = ["yuriivasylchuk.org.ua"]
+          cookie_samesite="lax"
       resources:
         limits:
           cpu: 200m
