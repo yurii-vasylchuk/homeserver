@@ -71,4 +71,4 @@ resources:
   - oauth2-proxy-externalsecret.yaml
   - oauth2-proxy-ingressroute.yaml
   - oauth2-proxy-auth-headers-middleware.yaml
-  - oauth2-proxy-auth-middleware.yaml
+  - oauth2-proxy-auth-redirect-middleware.yaml

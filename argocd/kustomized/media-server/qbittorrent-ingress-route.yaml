@@ -15,6 +15,7 @@
 #
 #---
 
+
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
@@ -24,16 +25,37 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`torrent.yuriivasylchuk.org.ua`)
+    - match: "Host(`torrent.yuriivasylchuk.org.ua`) && PathPrefix(`/`)"
       kind: Rule
-#      middlewares:
-#        - name: torrent-auth-autologin
-#          namespace: media-server
-#        - name: auth-middleware
-#          namespace: keycloak
+      middlewares:
+        - name: auth-redirect
+          namespace: keycloak
       services:
         - name: qbittorrent-svc
           port: 8080
+  tls:
+    certResolver: letsencrypt
+
+---
+
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: qbittorrent-ingressroute
+  namespace: media-server
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: "Host(`torrent.yuriivasylchuk.org.ua`) && PathPrefix(`/oauth2/`)"
+      kind: Rule
+      middlewares:
+        - name: auth-headers
+          namespace: keycloak
+      services:
+        - name: oauth2-proxy
+          namespace: keycloak
+          port: 80
   tls:
     certResolver: letsencrypt
 
