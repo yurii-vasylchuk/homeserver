@@ -53,9 +53,8 @@ helmCharts:
           auth_logging_format = "{{.Client}} - {{.Username}} [{{.Timestamp}}] [{{.Status}}] {{.Message}}"
           email_domains = [ "*" ]
           pass_access_token = true
-
           oidc_issuer_url = "https://keycloak.yuriivasylchuk.org.ua/realms/home-server"
-          provider = keycloak-oidc
+          provider = "keycloak-oidc"
           redirect_url = "https://auth.yuriivasylchuk.org.ua/oauth2/callback"
           code_challenge_method = "S256"
       resources:
