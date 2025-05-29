@@ -28,7 +28,7 @@ spec:
       kind: Rule
       middlewares:
         - name: auth-redirect
-          namespace: media-server
+          namespace: keycloak
       services:
         - name: qbittorrent-svc
           port: 8080
