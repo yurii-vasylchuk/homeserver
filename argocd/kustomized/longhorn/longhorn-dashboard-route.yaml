@@ -16,19 +16,42 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: traefik-ingressroute
+  name: longhorn-ingressroute
   namespace: longhorn
 spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`longhorn.yuriivasylchuk.org.ua`)
+    - match: "Host(`longhorn.yuriivasylchuk.org.ua`) && PathPrefix(`/`)"
       kind: Rule
       middlewares:
         - name: longhorn-auth-redirect
           namespace: longhorn
       services:
         - name: longhorn-frontend
+          port: 80
+  tls:
+    certResolver: letsencrypt
+
+---
+
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: longhorn-auth-ingressroute
+  namespace: longhorn
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: "Host(`longhorn.yuriivasylchuk.org.ua`) && PathPrefix(`/oauth2/`)"
+      kind: Rule
+      middlewares:
+        - name: auth-headers
+          namespace: keycloak
+      services:
+        - name: oauth2-proxy
+          namespace: keycloak
           port: 80
   tls:
     certResolver: letsencrypt

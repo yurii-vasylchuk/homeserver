@@ -22,7 +22,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`traefik.yuriivasylchuk.org.ua`)
+    - match: "Host(`traefik.yuriivasylchuk.org.ua`) && PathPrefix(`/`)"
       kind: Rule
       services:
         - name: traefik
@@ -30,6 +30,29 @@ spec:
       middlewares:
         - name: traefik-auth-redirect
           namespace: kube-system
+  tls:
+    certResolver: letsencrypt
+
+---
+
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-auth-ingressroute
+  namespace: kube-system
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: "Host(`traefik.yuriivasylchuk.org.ua`) && PathPrefix(`/oauth2/`)"
+      kind: Rule
+      middlewares:
+        - name: auth-headers
+          namespace: keycloak
+      services:
+        - name: oauth2-proxy
+          namespace: keycloak
+          port: 80
   tls:
     certResolver: letsencrypt
 
