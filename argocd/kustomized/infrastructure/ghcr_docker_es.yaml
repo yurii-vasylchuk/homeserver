@@ -12,11 +12,11 @@ spec:
     name: ghcr
     creationPolicy: Owner
     template:
-      type: kubernetes.io/dockerconfigjson
+      type: "kubernetes.io/dockerconfigjson"
       data:
         .dockerconfigjson: "{{ .dockerconfigjson | toString }}"
   data:
     - secretKey: dockerconfigjson
       remoteRef:
-        key: kv/data/ghcr.io
+        key: "kv/data/ghcr.io"
         property: secret
