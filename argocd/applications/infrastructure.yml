@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: infrastructure
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  revisionHistoryLimit: 1
+  project: default
+
+  destination:
+    name: in-cluster
+    namespace: infrastructure
+
+  source:
+    repoURL: "git@github.com:yurii-vasylchuk/homeserver.git"
+    targetRevision: HEAD
+    path: "argocd/kustomized/infrastructure"
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
