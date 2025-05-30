@@ -1,19 +1,4 @@
 apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
-  name: torrent-auth-redirect
-  namespace: media-server
-spec:
-  forwardAuth:
-    address: "https://auth.yuriivasylchuk.org.ua?rd=https://torrent.yuriivasylchuk.org.ua"
-    trustForwardHeader: true
-    authResponseHeaders:
-      - X-Auth-Request-Access-Token
-      - Authorization
-
----
-
-apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: qbittorrent-ingressroute
@@ -24,35 +9,9 @@ spec:
   routes:
     - match: "Host(`torrent.yuriivasylchuk.org.ua`) && PathPrefix(`/`)"
       kind: Rule
-      middlewares:
-        - name: torrent-auth-redirect
-          namespace: media-server
       services:
         - name: qbittorrent-svc
           port: 8080
-  tls:
-    certResolver: letsencrypt
-
----
-
-apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
-metadata:
-  name: qbittorrent-auth-ingressroute
-  namespace: media-server
-spec:
-  entryPoints:
-    - websecure
-  routes:
-    - match: "Host(`torrent.yuriivasylchuk.org.ua`) && PathPrefix(`/oauth2/`)"
-      kind: Rule
-      middlewares:
-        - name: auth-headers
-          namespace: keycloak
-      services:
-        - name: oauth2-proxy
-          namespace: keycloak
-          port: 80
   tls:
     certResolver: letsencrypt
 
