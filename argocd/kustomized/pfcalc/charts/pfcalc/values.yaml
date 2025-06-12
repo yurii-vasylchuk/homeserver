@@ -86,7 +86,7 @@ persistence:
 applicationConfig:
   spring:
     datasource:
-      url: jdbc:postgresql://localhost:5432/pfcc
+      url: jdbc:postgresql://postgres.postgres:5432/pfcc
       driver-class-name: org.postgresql.Driver
       username: pfcalc
     jpa:
