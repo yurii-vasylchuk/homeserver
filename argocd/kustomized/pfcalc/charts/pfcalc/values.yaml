@@ -105,7 +105,7 @@ applicationConfig:
       auth-token-expiration: 3m
       refresh-token-expiration: 10d
     mail:
-      enabled: true
+      enabled: false
       do-not-reply-address: 'dont-reply@pfcalc.org.ua'
     expose-exception: on
     cors:
