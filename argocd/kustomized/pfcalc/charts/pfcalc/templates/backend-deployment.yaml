@@ -15,7 +15,7 @@ spec:
         app: {{ .Chart.Name }}-backend
     spec:
       imagePullSecrets:
-        {{ .Values.image.pullSecrets.ghcr }}
+        - name: {{ .Values.image.pullSecrets.ghcr }}
       containers:
         - name: {{ .Chart.Name }}-backend
           image: "{{ .Values.image.repository }}/{{ .Values.backend.tag }}:{{ .Values.backend.version }}"
@@ -31,22 +31,22 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: {{ .Chart.Name }}-secret
-                  name: 'db_password'
+                  name: 'db-password'
             - name: "PFCC_AUTH_PRIVATEKEY"
               valueFrom:
                 secretKeyRef:
                   key: {{ .Chart.Name }}-secret
-                  name: 'jwt_private_key'
+                  name: 'jwt-private-key'
 
-          {{- if .Values.backend.livenessProbe.enabled }}
-          {{- with .Values.backend.livenessProbe }}
+          {{- if .Values.backend.liveness.enabled }}
+          {{- with .Values.backend.liveness.probe }}
           livenessProbe:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- end }}
 
-          {{- if .Values.backend.readinessProbe.enabled }}
-          {{- with .Values.backend.readinessProbe }}
+          {{- if .Values.backend.readiness.enabled }}
+          {{- with .Values.backend.readiness.probe }}
           readinessProbe:
             {{- toYaml . | nindent 12 }}
           {{- end }}
@@ -59,7 +59,7 @@ spec:
 
 
           volumeMounts:
-            - name: application_yaml
+            - name: application-yaml
               readOnly: true
               mountPath: /config/application.yaml
               subPath: application.yaml
@@ -67,7 +67,7 @@ spec:
               mountPath: /data/reports
 
       volumes:
-        - name: application_yaml
+        - name: application-yaml
           configMap:
             name: {{ .Chart.Name }}-spring
         - name: reports

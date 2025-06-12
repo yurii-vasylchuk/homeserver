@@ -15,7 +15,7 @@ spec:
         app: pfcalc-frontend
     spec:
       imagePullSecrets:
-        {{ .Values.image.pullSecrets.ghcr }}
+        - name: {{ .Values.image.pullSecrets.ghcr }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}/{{ .Values.frontend.tag }}:{{ .Values.frontend.version }}"
@@ -24,15 +24,15 @@ spec:
             - name: http
               containerPort: {{ .Values.frontend.service.port }}
               protocol: TCP
-          {{- if .Values.frontend.livenessProbe.enabled }}
-          {{- with .Values.frontend.livenessProbe }}
+          {{- if .Values.frontend.liveness.enabled }}
+          {{- with .Values.frontend.liveness.probe }}
           livenessProbe:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- end }}
 
-          {{- if .Values.frontend.readinessProbe.enabled }}
-          {{- with .Values.frontend.readinessProbe }}
+          {{- if .Values.frontend.readiness.enabled }}
+          {{- with .Values.frontend.readiness.probe }}
           readinessProbe:
             {{- toYaml . | nindent 12 }}
           {{- end }}

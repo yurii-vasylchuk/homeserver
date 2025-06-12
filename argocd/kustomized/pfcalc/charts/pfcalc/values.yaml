@@ -23,20 +23,22 @@ backend:
     requests:
       cpu: 200m
       memory: 256Mi
-  livenessProbe:
+  liveness:
+    enabled: false
+    probe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: 8080
+        initialDelaySeconds: 3
+        periodSeconds: 3
+  readiness:
     enabled: false # Currently unsupported
-    httpGet:
-      path: /actuator/health/liveness
-      port: 8080
-      initialDelaySeconds: 3
-      periodSeconds: 3
-  readinessProbe:
-    enabled: false # Currently unsupported
-    httpGet:
-      path: /actuator/health/readiness
-      port: 8080
-      initialDelaySeconds: 3
-      periodSeconds: 3
+    probe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: 8080
+        initialDelaySeconds: 3
+        periodSeconds: 3
 
 frontend:
   replicaCount: 1
@@ -55,28 +57,30 @@ frontend:
     requests:
       cpu: 100m
       memory: 128Mi
-  livenessProbe:
+  liveness:
     enabled: true
-    httpGet:
-      path: /index.html
-      port: 80
-    initialDelaySeconds: 10
-    periodSeconds: 15
-    timeoutSeconds: 2
-    failureThreshold: 3
-  readinessProbe:
+    probe:
+      httpGet:
+        path: /index.html
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 15
+      timeoutSeconds: 2
+      failureThreshold: 3
+  readiness:
     enabled: true
-    httpGet:
-      path: /index.html
-      port: 80
-    initialDelaySeconds: 5
-    periodSeconds: 10
-    timeoutSeconds: 2
-    failureThreshold: 2
+    probe:
+      httpGet:
+        path: /index.html
+        port: 80
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      timeoutSeconds: 2
+      failureThreshold: 2
 
 persistence:
   reports:
-    size: 2Gb
+    size: 2Gi
     storageClass: local-path
 
 applicationConfig:
