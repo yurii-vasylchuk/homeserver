@@ -30,13 +30,13 @@ spec:
             - name: 'SPRING_DATASOURCE_PASSWORD'
               valueFrom:
                 secretKeyRef:
-                  key: {{ .Chart.Name }}-secret
-                  name: 'db-password'
+                  name: {{ .Chart.Name }}-secret
+                  key: 'db-password'
             - name: "PFCC_AUTH_PRIVATEKEY"
               valueFrom:
                 secretKeyRef:
-                  key: {{ .Chart.Name }}-secret
-                  name: 'jwt-private-key'
+                  name: {{ .Chart.Name }}-secret
+                  key: 'jwt-private-key'
 
           {{- if .Values.backend.liveness.enabled }}
           {{- with .Values.backend.liveness.probe }}
