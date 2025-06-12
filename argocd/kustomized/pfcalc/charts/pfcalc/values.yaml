@@ -107,4 +107,6 @@ applicationConfig:
     cors:
       - 'http://localhost:4200'
       - 'https://pfcalc.yuriivasylchuk.org.ua'
-  logging.file.name: pfcc.log
+  logging:
+    file:
+      name: 'pfcc.log'
