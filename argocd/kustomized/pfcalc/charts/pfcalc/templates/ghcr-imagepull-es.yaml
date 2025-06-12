@@ -2,7 +2,7 @@ apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
   name: {{ .Chart.Name }}-ghcr-es
-  namespace: infrastructure
+  namespace: {{ .Values.namespace }}
 spec:
   refreshInterval: 1h
   secretStoreRef:
@@ -13,6 +13,7 @@ spec:
     creationPolicy: Owner
     template:
       type: "kubernetes.io/dockerconfigjson"
+      engineVersion: v2
       data:
         .dockerconfigjson: "{{ `{{ .dockerconfigjson | toString }}` }}"
   data:
