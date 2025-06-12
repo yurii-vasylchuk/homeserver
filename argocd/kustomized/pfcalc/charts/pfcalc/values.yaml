@@ -1,0 +1,110 @@
+namespace: pfcalc
+
+image:
+  repository: "ghcr.io"
+  pullPolicy: IfNotPresent
+  pullSecrets:
+    ghcr: ghcr-image-pull-secret
+
+backend:
+  replicaCount: 1
+  tag: "yurii-vasylchuk/pfcalc-backend"
+  version: "1.0.0"
+  service:
+    type: ClusterIP
+    port: 8080
+  ingress:
+    enabled: true
+    host: 'api.pfcalc.yuriivasylchuk.org.ua'
+  resources:
+    limits:
+      cpu: 400m
+      memory: 512Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+  livenessProbe:
+    enabled: false # Currently unsupported
+    httpGet:
+      path: /actuator/health/liveness
+      port: 8080
+      initialDelaySeconds: 3
+      periodSeconds: 3
+  readinessProbe:
+    enabled: false # Currently unsupported
+    httpGet:
+      path: /actuator/health/readiness
+      port: 8080
+      initialDelaySeconds: 3
+      periodSeconds: 3
+
+frontend:
+  replicaCount: 1
+  tag: "yurii-vasylchuk/pfcalc-frontend"
+  version: "1.0.0"
+  service:
+    type: ClusterIP
+    port: 80
+  ingress:
+    enabled: true
+    host: pfcalc.yuriivasylchuk.org.ua
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  livenessProbe:
+    enabled: true
+    httpGet:
+      path: /index.html
+      port: 80
+    initialDelaySeconds: 10
+    periodSeconds: 15
+    timeoutSeconds: 2
+    failureThreshold: 3
+  readinessProbe:
+    enabled: true
+    httpGet:
+      path: /index.html
+      port: 80
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    timeoutSeconds: 2
+    failureThreshold: 2
+
+persistence:
+  reports:
+    size: 2Gb
+    storageClass: local-path
+
+applicationConfig:
+  spring:
+    datasource:
+      url: jdbc:postgresql://localhost:5432/pfcc
+      driver-class-name: org.postgresql.Driver
+      username: pfcalc
+    jpa:
+      hibernate:
+        ddl-auto: validate
+  pfcc:
+    reports:
+      store-path: "/data/reports"
+      chrome-executable: "/usr/bin/chromium-browser"
+      render-timeout: PT2M
+    auth:
+      same-site: none
+      key-algorithm: RSA
+      public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqS601UtQXc+/BXs487XQ+/9pFnHuy9v43qEqk3A8dE7jDkLJISa/nHzz2CmhuhQkEimQlNOqDMcZL3kVmUKdCPYz3WqxHEAq998Pqj/bqqXQ3NO9fo0kvSZT8bhYkmoowc9Upt9yMbBxk+QkuKGE2j3FmhvVIbYrpi9e+Qpuwj1kioWMMOivtb+AKQp6aT5ByAaDtWzbikSX0Z4qy5fVxy0BqQ+jNp9vpMS4a1P5pzBoe77ZlrDTuS/drZm5GToiaJozsC96Btdnl2/4ayA6n7fm1eUVqfGh7+UgeeGuVbCJ6ioxDbo4tWqHcDH+qsZiZkt9oWgZ54pqyq6ZvgxxqQIDAQAB
+      issuer: 'https://pfcalc.yuriivasylchuk.org.ua'
+      auth-token-expiration: 3m
+      refresh-token-expiration: 10d
+    mail:
+      enabled: true
+      do-not-reply-address: 'dont-reply@pfcalc.org.ua'
+    expose-exception: on
+    cors:
+      - 'http://localhost:4200'
+      - 'https://pfcalc.yuriivasylchuk.org.ua'
+  logging.file.name: pfcc.log

@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfcalc
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  revisionHistoryLimit: 1
+  project: default
+
+  destination:
+    name: in-cluster
+    namespace: pfcalc
+
+  source:
+    repoURL: "git@github.com:yurii-vasylchuk/homeserver.git"
+    targetRevision: HEAD
+    path: "argocd/kustomized/pfcalc"
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
