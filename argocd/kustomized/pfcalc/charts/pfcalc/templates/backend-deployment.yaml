@@ -61,7 +61,7 @@ spec:
           volumeMounts:
             - name: application-yaml
               readOnly: true
-              mountPath: /config/application.yaml
+              mountPath: /app/config/application.yaml
               subPath: application.yaml
             - name: reports
               mountPath: /data/reports
