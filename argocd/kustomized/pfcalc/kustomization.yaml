@@ -6,3 +6,6 @@ helmCharts:
     namespace: pfcalc
     releaseName: pfcalc
     version: 1.0.0
+    valuesInline:
+      frontend:
+        version: '1.0.2'
