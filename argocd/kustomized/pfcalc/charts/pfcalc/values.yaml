@@ -43,7 +43,7 @@ backend:
 frontend:
   replicaCount: 1
   tag: "yurii-vasylchuk/pfcalc-frontend"
-  version: "1.0.1"
+  version: "1.0.2"
   service:
     type: ClusterIP
     port: 80
@@ -95,7 +95,7 @@ applicationConfig:
   pfcc:
     reports:
       store-path: "/data/reports"
-      chrome-executable: "/usr/bin/chromium-browser"
+      chrome-executable: "/usr/bin/chromium"
       render-timeout: PT2M
     auth:
       same-site: none

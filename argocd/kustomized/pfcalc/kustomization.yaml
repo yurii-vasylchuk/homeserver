@@ -9,3 +9,5 @@ helmCharts:
     valuesInline:
       frontend:
         version: '1.0.2'
+      backend:
+        version: '1.1.3'
