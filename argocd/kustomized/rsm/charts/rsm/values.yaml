@@ -89,7 +89,7 @@ applicationConfig:
       config:
         enabled: false
     datasource:
-      url: 'jdbc:postgresql://localhost:5432/rms'
+      url: 'jdbc:postgresql://postgres.postgres:5432/rms'
     security:
       oauth2:
         resourceserver:
