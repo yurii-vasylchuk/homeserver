@@ -28,7 +28,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: "{{ .Values.frontend.ingress.host }}"
+    - match: "Host(`{{ .Values.frontend.ingress.host }}`) && PathPrefix(`/`)"
       kind: Rule
       middlewares:
         - name: redirect-to-https
