@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pfcalc-frontend
+  name: {{ .Chart.Name }}-frontend
   labels:
-    app: pfcalc-frontend
+    app: {{ .Chart.Name }}-frontend
 spec:
-  replicas: {{ .Values.backend.replicaCount }}
+  replicas: {{ .Values.frontend.replicaCount }}
   selector:
     matchLabels:
-      app: pfcalc-frontend
+      app: {{ .Chart.Name }}-frontend
   template:
     metadata:
       labels:
-        app: pfcalc-frontend
+        app: {{ .Chart.Name }}-frontend
     spec:
       imagePullSecrets:
         - name: {{ .Values.image.pullSecrets.ghcr }}
