@@ -1,0 +1,102 @@
+namespace: rsm
+
+image:
+  repository: "ghcr.io"
+  pullPolicy: IfNotPresent
+  pullSecrets:
+    ghcr: ghcr-image-pull-secret
+
+backend:
+  replicaCount: 1
+  tag: "yurii-vasylchuk/rsm-backend"
+  version: "0.0.2"
+  service:
+    type: ClusterIP
+    port: 8080
+  ingress:
+    enabled: true
+    host: 'api.rsm.yuriivasylchuk.org.ua'
+  resources:
+    limits:
+      cpu: 400m
+      memory: 512Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+  liveness:
+    enabled: false
+    probe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: 8080
+        initialDelaySeconds: 3
+        periodSeconds: 3
+  readiness:
+    enabled: false # Currently unsupported
+    probe:
+      httpGet:
+        path: /actuator/health/readiness
+        port: 8080
+        initialDelaySeconds: 3
+        periodSeconds: 3
+
+frontend:
+  replicaCount: 1
+  tag: "yurii-vasylchuk/rsm-frontend"
+  version: "1.0.2"
+  service:
+    type: ClusterIP
+    port: 80
+  ingress:
+    enabled: true
+    host: rsm.yuriivasylchuk.org.ua
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  liveness:
+    enabled: true
+    probe:
+      httpGet:
+        path: /index.html
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 15
+      timeoutSeconds: 2
+      failureThreshold: 3
+  readiness:
+    enabled: true
+    probe:
+      httpGet:
+        path: /index.html
+        port: 80
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      timeoutSeconds: 2
+      failureThreshold: 2
+
+persistence:
+  reports:
+    size: 2Gi
+    storageClass: local-path
+
+applicationConfig:
+  spring:
+    cloud:
+      config:
+        enabled: false
+    datasource:
+      url: 'jdbc:postgresql://localhost:5432/rms'
+    security:
+      oauth2:
+        resourceserver:
+          jwt:
+            issuer-uri: 'https://keycloak.yuriivasylchuk.org.ua/realms/rsm'
+    application:
+      name: backend
+  management:
+    server:
+      port: 8080

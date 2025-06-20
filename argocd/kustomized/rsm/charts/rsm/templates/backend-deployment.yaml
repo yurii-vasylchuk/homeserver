@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}-backend
+  labels:
+    app: {{ .Chart.Name }}-backend
+spec:
+  replicas: {{ .Values.frontend.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}-backend
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}-backend
+    spec:
+      imagePullSecrets:
+        - name: {{ .Values.image.pullSecrets.ghcr }}
+      containers:
+        - name: {{ .Chart.Name }}-backend
+          image: "{{ .Values.image.repository }}/{{ .Values.backend.tag }}:{{ .Values.backend.version }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+          ports:
+            - name: http
+              containerPort: {{ .Values.backend.service.port }}
+              protocol: TCP
+
+          env:
+            - name: 'SPRING_DATASOURCE_PASSWORD'
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Chart.Name }}-secret
+                  key: 'db-password'
+            - name: 'SPRING_DATASOURCE_USERNAME'
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Chart.Name }}-secret
+                  key: 'db-username'
+
+          {{- if .Values.backend.liveness.enabled }}
+          {{- with .Values.backend.liveness.probe }}
+          livenessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- end }}
+
+          {{- if .Values.backend.readiness.enabled }}
+          {{- with .Values.backend.readiness.probe }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- end }}
+
+          {{- with .Values.backend.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+
+
+          volumeMounts:
+            - name: application-yaml
+              readOnly: true
+              mountPath: /app/config/application.yaml
+              subPath: application.yaml
+            - name: reports
+              mountPath: /data/reports
+
+      volumes:
+        - name: application-yaml
+          configMap:
+            name: {{ .Chart.Name }}-spring
+        - name: reports
+          persistentVolumeClaim:
+            claimName: {{ .Chart.Name }}-reports

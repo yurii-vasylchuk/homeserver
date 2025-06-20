@@ -1,0 +1,41 @@
+{{- if .Values.backend.ingress.enabled -}}
+
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Chart.Name }}-backend-ingressroute
+  namespace: {{ .Values.namespace }}
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: "Host(`{{ .Values.backend.ingress.host }}`) && PathPrefix(`/`)"
+      kind: Rule
+      services:
+        - name: {{ .Chart.Name }}-backend-svc
+          port: 80
+  tls:
+    certResolver: letsencrypt
+
+---
+
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: redirect-http-{{ .Chart.Name }}-backend
+  namespace: {{ .Values.namespace }}
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: "{{ .Values.backend.ingress.host }}"
+      kind: Rule
+      middlewares:
+        - name: redirect-to-https
+          namespace: kube-system
+      services:
+        - name: noop-svc
+          namespace: kube-system
+          port: 80
+
+{{- end }}
