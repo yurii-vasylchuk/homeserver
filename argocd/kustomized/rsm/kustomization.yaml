@@ -8,6 +8,6 @@ helmCharts:
     version: 1.0.0
     valuesInline:
       frontend:
-        version: '0.0.7'
+        version: '0.0.8'
       backend:
         version: '0.0.4'
