@@ -108,3 +108,4 @@ applicationConfig:
             - '*'
           allowed-origins:
             - 'rsm.yuriivasylchuk.org.ua'
+            - 'localhost'
