@@ -104,5 +104,7 @@ applicationConfig:
       web:
         cors:
           allow-credentials: true
-          allowed-methods: *
-          allowed-origins: rsm.yuriivasylchuk.org.ua
+          allowed-methods:
+            - '*'
+          allowed-origins:
+            - 'rsm.yuriivasylchuk.org.ua'
