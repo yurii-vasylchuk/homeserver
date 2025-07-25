@@ -49,7 +49,7 @@ frontend:
     port: 80
   ingress:
     enabled: true
-    host: rsm.yuriivasylchuk.org.ua
+    host: 'rsm.yuriivasylchuk.org.ua'
   resources:
     limits:
       cpu: 200m
@@ -100,3 +100,9 @@ applicationConfig:
   management:
     server:
       port: 8080
+    endpoints:
+      web:
+        cors:
+          allow-credentials: true
+          allowed-methods: *
+          allowed-origins: rsm.yuriivasylchuk.org.ua
