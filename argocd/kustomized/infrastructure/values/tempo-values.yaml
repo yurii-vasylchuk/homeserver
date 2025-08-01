@@ -1,0 +1,23 @@
+tempo:
+  storage:
+    trace:
+      backend: local
+      local:
+        path: /var/tempo
+  retention: 72h
+
+server:
+  http_listen_port: 3100
+  grpc_listen_port: 4317
+
+service:
+  type: ClusterIP
+  port: 4317
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi

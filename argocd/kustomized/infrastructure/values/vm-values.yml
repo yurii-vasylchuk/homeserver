@@ -1,0 +1,26 @@
+server:
+  enabled: true
+  retentionPeriod: 7d
+  retentionDiskSpaceUsage: 8GB
+  persistentVolume:
+    enabled: true
+    accessModes:
+      - ReadWriteOnce
+    size: 10Gi
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "250m"
+    limits:
+      memory: "1Gi"
+      cpu: "500m"
+  service:
+    enabled: true
+    type: ClusterIP
+    servicePort: 8428
+  extraArgs:
+    - '-promscrape.disable'
+    - '-httpListenAddr=:8428'
+
+vector:
+  enabled: true

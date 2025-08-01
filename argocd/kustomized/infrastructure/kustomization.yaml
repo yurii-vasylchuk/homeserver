@@ -1,3 +1,26 @@
 namespace: infrastructure
+
+helmCharts:
+  - name: opentelemetry-collector
+    repo: 'https://open-telemetry.github.io/opentelemetry-helm-charts'
+    version: 0.130.0
+    releaseName: otel
+    valuesInline:
+      mode: deployment
+      configMap:
+        create: false
+        name: otel-collector-config
+  - name: victoria-metrics-single
+    repo: 'https://victoriametrics.github.io/helm-charts/'
+    version: 0.11.5
+    releaseName: victoria-metrics
+    valuesFile: 'values/vm-values.yaml'
+  - name: tempo
+    repo: https://grafana.github.io/helm-charts
+    version: 1.7.1
+    releaseName: tempo
+    valuesFile: values/tempo-values.yaml
+
 resources:
-  - ghcr_docker_es.yaml
+  - 'resources/ghcr_docker_es.yaml'
+  - 'resources/otel-collector-config.yaml'
