@@ -1,3 +1,6 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
 namespace: infrastructure
 
 helmCharts:
@@ -7,6 +10,8 @@ helmCharts:
     releaseName: otel
     valuesInline:
       mode: deployment
+      image:
+        repository: 'otel/opentelemetry-collector-k8s'
       configMap:
         create: false
         name: otel-collector-config
