@@ -11,7 +11,8 @@ helmCharts:
     valuesInline:
       mode: deployment
       image:
-        repository: 'otel/opentelemetry-collector-k8s'
+        repository: "ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-k8s"
+        tag: 0.130.0
       configMap:
         create: false
         name: otel-collector-config
