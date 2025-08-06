@@ -19,8 +19,8 @@ server:
     type: ClusterIP
     servicePort: 8428
   extraArgs:
-    - '-promscrape.disable'
-    - '-httpListenAddr=:8428'
+    promscrape.disable: true
+    httpListenAddr: ':8428'
 
-vector:
-  enabled: true
+#vector:
+#  enabled: true
