@@ -1,0 +1,31 @@
+mode: deployment
+
+
+image:
+  repository: "ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib"
+  tag: 0.130.0
+config:
+  receivers:
+    otlp:
+      protocols:
+        grpc:
+        http:
+  processors:
+    batch: { }
+  exporters:
+    prometheusremotewrite:
+      endpoint: "http://victoria-metrics.infrastructure.svc:8428/api/v1/write"
+    otlp/tempo:
+      endpoint: tempo.infrastructure.svc:4317
+      tls:
+        insecure: true
+  service:
+    pipelines:
+      metrics:
+        receivers: [ otlp ]
+        processors: [ batch ]
+        exporters: [ prometheusremotewrite ]
+      traces:
+        receivers: [ otlp ]
+        processors: [ batch ]
+        exporters: [ otlp/tempo ]
