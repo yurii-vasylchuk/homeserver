@@ -1,0 +1,66 @@
+persistence:
+  enabled: true
+  size: 5Gi
+
+admin:
+  existingSecret: grafana
+
+service:
+  type: ClusterIP
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: VictoriaMetrics
+        uid: victoria
+        type: prometheus
+        access: proxy
+        url: http://victoria-metrics-victoria-metrics-single-server.infrastructure.svc:8428
+        isDefault: true
+      - name: Tempo
+        type: tempo
+        access: proxy
+        url: http://tempo.infrastructure.svc.cluster.local:3100
+        jsonData:
+          httpMethod: GET
+          tracesToLogs:
+            datasourceUid: victoria
+            spanStartTimeShift: "1h"
+            spanEndTimeShift: "1h"
+            tags:
+              - job
+              - instance
+              - pod
+          tracesToMetrics:
+            datasourceUid: victoria
+            spanStartTimeShift: "1h"
+            spanEndTimeShift: "1h"
+          serviceMap:
+            datasourceUid: victoria
+          nodeGraph:
+            enabled: true
+          search:
+            hide: false
+
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+      - name: default
+        orgId: 1
+        folder: ''
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/default
+
+dashboards:
+  default:
+    otel-metrics:
+      gnetId: 16120
+      datasource: VictoriaMetrics
+    tempo:
+      gnetId: 16536
+      datasource: Tempo

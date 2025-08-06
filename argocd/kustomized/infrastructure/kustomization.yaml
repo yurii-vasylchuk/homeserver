@@ -19,6 +19,14 @@ helmCharts:
     version: 1.7.1
     releaseName: tempo
     valuesFile: values/tempo-values.yaml
+  - name: grafana
+    releaseName: grafana
+    repo: https://grafana.github.io/helm-charts
+    version: 9.3.1
+    namespace: infrastructure
+    valuesFile: values/grafana-values.yaml
 
 resources:
   - 'resources/ghcr_docker_es.yaml'
+  - 'resources/grafana_es.yaml'
+  - 'resources/grafana-ingress-route.yaml'
