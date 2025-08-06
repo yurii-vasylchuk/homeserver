@@ -13,30 +13,31 @@ helmCharts:
       image:
         repository: "ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-k8s"
         tag: 0.130.0
-      receivers:
-        otlp:
-          protocols:
-            grpc:
-            http:
-      processors:
-        batch: { }
-      exporters:
-        prometheusremotewrite:
-          endpoint: "http://victoria-metrics.infrastructure.svc:8428/api/v1/write"
-        otlp/tempo:
-          endpoint: tempo.infrastructure.svc:4317
-          tls:
-            insecure: true
-      service:
-        pipelines:
-          metrics:
-            receivers: [ otlp ]
-            processors: [ batch ]
-            exporters: [ prometheusremotewrite ]
-          traces:
-            receivers: [ otlp ]
-            processors: [ batch ]
-            exporters: [ otlp/tempo ]
+      config:
+        receivers:
+          otlp:
+            protocols:
+              grpc:
+              http:
+        processors:
+          batch: { }
+        exporters:
+          prometheusremotewrite:
+            endpoint: "http://victoria-metrics.infrastructure.svc:8428/api/v1/write"
+          otlp/tempo:
+            endpoint: tempo.infrastructure.svc:4317
+            tls:
+              insecure: true
+        service:
+          pipelines:
+            metrics:
+              receivers: [ otlp ]
+              processors: [ batch ]
+              exporters: [ prometheusremotewrite ]
+            traces:
+              receivers: [ otlp ]
+              processors: [ batch ]
+              exporters: [ otlp/tempo ]
   - name: victoria-metrics-single
     repo: 'https://victoriametrics.github.io/helm-charts/'
     version: 0.24.2
