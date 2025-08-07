@@ -18,7 +18,7 @@ config:
     prometheus:
       endpoint: 0.0.0.0:8889
     prometheusremotewrite:
-      endpoint: "http://victoria-metrics.infrastructure.svc:8428/api/v1/write"
+      endpoint: "http://victoria-metrics-victoria-metrics-single-server.infrastructure.svc:8428/api/v1/write"
     otlp/tempo:
       endpoint: tempo.infrastructure.svc:4317
       tls:
