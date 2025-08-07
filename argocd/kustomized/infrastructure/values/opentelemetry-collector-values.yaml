@@ -13,8 +13,8 @@ config:
   processors:
     batch: { }
   exporters:
-    logging:
-      loglevel: debug
+    debug:
+      verbosity: detailed
     prometheus:
       endpoint: 0.0.0.0:8889
     prometheusremotewrite:
@@ -28,8 +28,8 @@ config:
       metrics:
         receivers: [ otlp ]
         processors: [ batch ]
-        exporters: [ prometheusremotewrite ]
+        exporters: [ prometheusremotewrite, debug, prometheus ]
       traces:
         receivers: [ otlp ]
         processors: [ batch ]
-        exporters: [ otlp/tempo ]
+        exporters: [ otlp/tempo, debug, prometheus ]
