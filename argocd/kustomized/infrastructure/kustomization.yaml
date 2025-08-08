@@ -30,3 +30,4 @@ resources:
   - 'resources/ghcr_docker_es.yaml'
   - 'resources/grafana_es.yaml'
   - 'resources/grafana-ingress-route.yaml'
+  - 'resources/opentelemetry-collector-es.yaml'
