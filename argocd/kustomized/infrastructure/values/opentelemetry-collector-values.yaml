@@ -1,12 +1,12 @@
 mode: deployment
 
-extraEnvsFrom:
-  - name: POSTGRES_USER
+extraEnvs:
+  - name: "POSTGRES_USER"
     valueFrom:
       secretKeyRef:
         name: opentelemetry-collector
         key: postgres_user
-  - name: POSTGRES_PASSWORD
+  - name: "POSTGRES_PASSWORD"
     valueFrom:
       secretKeyRef:
         name: opentelemetry-collector
