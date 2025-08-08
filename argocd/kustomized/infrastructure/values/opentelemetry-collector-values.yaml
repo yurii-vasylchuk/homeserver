@@ -1,11 +1,35 @@
 mode: deployment
 
+extraEnvsFrom:
+  - name: POSTGRES_USER
+    valueFrom:
+      secretKeyRef:
+        name: opentelemetry-collector
+        key: postgres_user
+  - name: POSTGRES_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: opentelemetry-collector
+        key: postgres_password
 
 image:
   repository: "ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib"
   tag: 0.130.0
 config:
   receivers:
+    postgresql:
+      endpoint: "postgres.postgres:5432"
+      username: "${env:POSTGRES_USER}"
+      password: "${env:POSTGRES_PASSWORD}"
+      database: postgres
+      include_databases:
+        - "authelia"
+        - "keycloak"
+        - "pfcalc"
+        - "rsm"
+      collection_interval: 30s
+      tls:
+        insecure: true
     otlp:
       protocols:
         grpc: { }
@@ -26,7 +50,7 @@ config:
   service:
     pipelines:
       metrics:
-        receivers: [ otlp ]
+        receivers: [ otlp, postgresql ]
         processors: [ batch ]
         exporters: [ prometheusremotewrite, debug, prometheus ]
       traces:
