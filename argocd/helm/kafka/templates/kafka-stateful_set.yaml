@@ -4,6 +4,9 @@ metadata:
   name: kafka
   namespace: kafka
 spec:
+  persistentVolumeClaimRetentionPolicy:
+    whenScaled: Retain
+    whenDeleted: Retain
   serviceName: {{ .Values.serviceName }}
   replicas: {{ .Values.replicaCount }}
   selector:

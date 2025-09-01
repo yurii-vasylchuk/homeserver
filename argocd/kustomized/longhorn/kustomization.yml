@@ -5,23 +5,21 @@ helmCharts:
     version: 1.8.1
     namespace: longhorn
     valuesInline:
+      persistence:
+        defaultClass: true
+        defaultClassReplicaCount: 1
+        reclaimPolicy: Retain
+
       preUpgradeChecker:
         jobEnabled: false
       defaultSettings:
         defaultDataPath: /var/lib/longhorn
         defaultReplicaCount: 1
-
-        persistence:
-          defaultClass: true
-          defaultClassReplicaCount: 1
-          reclaimPolicy: Retain
-
-        csi:
-          attacherReplicaCount: 1
-          provisionerReplicaCount: 1
-          resizerReplicaCount: 1
-          snapshotterReplicaCount: 1
-
+      csi:
+        attacherReplicaCount: 1
+        provisionerReplicaCount: 1
+        resizerReplicaCount: 1
+        snapshotterReplicaCount: 1
 resources:
   - node-descriptor.yml
   - storageclass-hdd.yaml

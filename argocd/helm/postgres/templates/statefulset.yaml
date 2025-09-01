@@ -4,6 +4,9 @@ metadata:
   name: postgres
   namespace: {{ .Values.postgres.namespace }}
 spec:
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Retain
+    whenScaled: Retain
   serviceName: postgres
   replicas: 1
   selector:
@@ -59,6 +62,7 @@ spec:
         namespace: {{ .Values.postgres.namespace }}
         name: postgres-data
       spec:
+        storageClassName: 'longhorn'
         accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:

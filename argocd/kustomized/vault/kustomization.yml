@@ -23,11 +23,12 @@ helmCharts:
         dataStorage:
           enabled: true
           size: 5Gi
-          storageClass: longhorn
         auditStorage:
           enabled: true
           size: 5Gi
-          storageClass: longhorn
+        persistentVolumeClaimRetentionPolicy:
+          whenDeleted: Retain
+          whenScaled: Retain
 
   - repo: https://charts.external-secrets.io
     releaseName: external-secrets
