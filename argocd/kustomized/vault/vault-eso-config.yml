@@ -1,3 +1,18 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: vault-auth-delegator
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:auth-delegator
+subjects:
+  - kind: ServiceAccount
+    name: external-secrets
+    namespace: vault
+
+---
+
 apiVersion: external-secrets.io/v1beta1
 kind: ClusterSecretStore
 metadata:
@@ -9,10 +24,6 @@ spec:
       path: "kv"
       version: "v2"
       auth:
-        appRole:
-          path: approle
-          roleId: "d119367c-2c7f-4dc5-479b-4df0066b60d7"
-          secretRef:
-            name: vault-eso-credentials
-            namespace: vault
-            key: secretId
+        kubernetes:
+          mountPath: "kubernetes"
+          role: "eso"
