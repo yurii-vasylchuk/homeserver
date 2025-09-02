@@ -19,7 +19,7 @@ helmCharts:
         enabled: true
       postgresql:
         enabled: false
-      resourcesPreset: small
+      resourcesPreset: medium
 
       externalDatabase:
         host: postgres.postgres.svc.cluster.local
