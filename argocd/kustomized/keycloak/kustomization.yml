@@ -73,8 +73,8 @@
 #      sessionStorage:
 #        type: cookie
 
-#resources:
-#  - keycloak-admin-externalsecret.yaml
+resources:
+  - keycloak-admin-externalsecret.yaml
 #  - keycloak-pg-user-externalsecret.yaml
 #  - keycloak-dashboard-route.yaml
 #  - oauth2-proxy-externalsecret.yaml
