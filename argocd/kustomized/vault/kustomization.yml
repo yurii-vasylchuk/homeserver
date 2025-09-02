@@ -30,12 +30,12 @@ helmCharts:
           whenDeleted: Retain
           whenScaled: Retain
 
-#  - repo: https://charts.external-secrets.io
-#    releaseName: external-secrets
-#    name: external-secrets
-#    version: 0.19.2
-#    namespace: vault
+  - repo: https://charts.external-secrets.io
+    releaseName: external-secrets
+    name: external-secrets
+    version: 0.19.2
+    namespace: vault
 
 resources:
   - vault-dashboard-route.yaml
-#  - vault-eso-config.yml
+  - vault-eso-config.yml
