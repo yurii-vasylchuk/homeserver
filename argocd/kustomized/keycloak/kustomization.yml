@@ -1,36 +1,36 @@
-helmCharts:
-  - repo: oci://registry-1.docker.io/bitnamicharts
-    name: keycloak
-    releaseName: keycloak
-    version: 24.6.7
-    namespace: keycloak
-    valuesInline:
-      service:
-        type: ClusterIP
-      proxyHeaders: xforwarded
-      auth:
-        adminUser: admin
-        existingSecret: keycloak-admin-secret
-        passwordSecretKey: password
-
-      ingress:
-        enabled: false
-      metrics:
-        enabled: true
-      postgresql:
-        enabled: false
-      resourcesPreset: small
-
-      externalDatabase:
-        host: postgres.postgres.svc.cluster.local
-        port: 5432
-        database: keycloak
-        user: keycloak
-        existingSecret: keycloak-pg-user-secret
-        existingSecretPasswordKey: password
-        existingSecretUserKey: username
-      logging:
-        level: INFO
+#helmCharts:
+#  - repo: oci://registry-1.docker.io/bitnamicharts
+#    name: keycloak
+#    releaseName: keycloak
+#    version: 24.6.7
+#    namespace: keycloak
+#    valuesInline:
+#      service:
+#        type: ClusterIP
+#      proxyHeaders: xforwarded
+#      auth:
+#        adminUser: admin
+#        existingSecret: keycloak-admin-secret
+#        passwordSecretKey: password
+#
+#      ingress:
+#        enabled: false
+#      metrics:
+#        enabled: true
+#      postgresql:
+#        enabled: false
+#      resourcesPreset: small
+#
+#      externalDatabase:
+#        host: postgres.postgres.svc.cluster.local
+#        port: 5432
+#        database: keycloak
+#        user: keycloak
+#        existingSecret: keycloak-pg-user-secret
+#        existingSecretPasswordKey: password
+#        existingSecretUserKey: username
+#      logging:
+#        level: INFO
 #  - repo: https://oauth2-proxy.github.io/manifests
 #    name: oauth2-proxy
 #    version: 7.12.17
@@ -76,7 +76,7 @@ helmCharts:
 resources:
   - keycloak-admin-externalsecret.yaml
   - keycloak-pg-user-externalsecret.yaml
-  - keycloak-dashboard-route.yaml
+#  - keycloak-dashboard-route.yaml
 #  - oauth2-proxy-externalsecret.yaml
 #  - oauth2-proxy-ingressroute.yaml
 #  - oauth2-proxy-auth-headers-middleware.yaml
