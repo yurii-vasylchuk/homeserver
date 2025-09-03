@@ -25,4 +25,3 @@ helmCharts:
 
 resources:
   - redis-auth-external-secret.yaml
-  - redis-acl-external-secret.yaml

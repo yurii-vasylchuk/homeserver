@@ -22,7 +22,6 @@ config:
       username: "${env:POSTGRES_USER}"
       password: "${env:POSTGRES_PASSWORD}"
       databases:
-        - "authelia"
         - "keycloak"
         - "pfcalc"
         - "rsm"
