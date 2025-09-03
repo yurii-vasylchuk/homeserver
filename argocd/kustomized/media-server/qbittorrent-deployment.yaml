@@ -21,7 +21,7 @@ spec:
             - name: WEBUI_PORTS
               value: "8080/tcp"
             - name: TORRENTING_PORT
-              value: "6881/udp"
+              value: "6881"
             - name: PUID
               value: "1000"
             - name: PGID
