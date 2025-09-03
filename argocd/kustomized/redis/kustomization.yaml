@@ -17,12 +17,6 @@ helmCharts:
 
         acl:
           enabled: false
-          users:
-            - username: "authelia"
-              enabled: "on"
-              commands: "+@all"
-              keys: "~authelia:*"
-          usersSecret: "redis-acl-secret"
       master:
         resourcesPreset: micro
         persistentVolumeClaimRetentionPolicy:
