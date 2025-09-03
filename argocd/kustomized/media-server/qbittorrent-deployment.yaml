@@ -14,12 +14,14 @@ spec:
         app: qbittorrent
     spec:
       containers:
-        - image: ghcr.io/hotio/qbittorrent
+        - image: linuxserver/qbittorrent:5.1.2
           imagePullPolicy: IfNotPresent
           name: qbittorrent
           env:
             - name: WEBUI_PORTS
-              value: "8080/tcp,6881/udp"
+              value: "8080/tcp"
+            - name: TORRENTING_PORT
+              value: "6881/udp"
             - name: PUID
               value: "1000"
             - name: PGID
@@ -34,12 +36,12 @@ spec:
             - containerPort: 6881
               protocol: UDP
           volumeMounts:
-            - mountPath: /data
+            - mountPath: /downloads
               name: media
             - mountPath: /config
               name: qbittorrent-config
-#            - name: webui
-#              mountPath: /config/data/webui
+            - name: webui
+              mountPath: /config/data/webui
       restartPolicy: Always
       volumes:
         - name: media
@@ -50,7 +52,7 @@ spec:
           hostPath:
             type: DirectoryOrCreate
             path: /mnt/external-hdd/qbittorrent-config
-#        - name: webui
-#          hostPath:
-#            path: /home/ubuntu/webui
-#            type: Directory
+        - name: webui
+          hostPath:
+            path: /home/ubuntu/webui
+            type: Directory
