@@ -112,5 +112,7 @@ applicationConfig:
       - 'http://localhost:4200'
       - 'https://pfcalc.yuriivasylchuk.org.ua'
   logging:
+    level:
+      org.springframework: DEBUG
     file:
       name: 'pfcalc.log'
