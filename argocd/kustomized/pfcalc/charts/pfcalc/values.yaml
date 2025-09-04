@@ -92,6 +92,11 @@ applicationConfig:
     jpa:
       hibernate:
         ddl-auto: validate
+  service:
+    name: ${spring.application.name}
+  instrumentation:
+    micrometer:
+      enabled: true
   pfcc:
     reports:
       store-path: "/data/reports"
@@ -112,7 +117,5 @@ applicationConfig:
       - 'http://localhost:4200'
       - 'https://pfcalc.yuriivasylchuk.org.ua'
   logging:
-    level:
-      root: DEBUG
     file:
       name: 'pfcalc.log'
