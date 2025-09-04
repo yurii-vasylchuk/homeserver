@@ -113,6 +113,6 @@ applicationConfig:
       - 'https://pfcalc.yuriivasylchuk.org.ua'
   logging:
     level:
-      org.springframework: DEBUG
+      root: DEBUG
     file:
       name: 'pfcalc.log'
