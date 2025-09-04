@@ -92,11 +92,12 @@ applicationConfig:
     jpa:
       hibernate:
         ddl-auto: validate
-  service:
-    name: ${spring.application.name}
-  instrumentation:
-    micrometer:
-      enabled: true
+  otel:
+    service:
+      name: ${spring.application.name}
+    instrumentation:
+      micrometer:
+        enabled: true
   pfcc:
     reports:
       store-path: "/data/reports"
