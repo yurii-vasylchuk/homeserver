@@ -16,6 +16,8 @@ helmCharts:
       startupProbe:
         enabled: true
         failureThreshold: 120
+      livenessProbe:
+        initialDelaySeconds: 600
 
       ingress:
         enabled: false
