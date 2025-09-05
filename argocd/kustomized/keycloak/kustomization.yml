@@ -13,6 +13,9 @@ helmCharts:
         existingSecret: keycloak-admin-secret
         passwordSecretKey: password
 
+      startupProbe:
+        enabled: true
+
       ingress:
         enabled: false
       metrics:
