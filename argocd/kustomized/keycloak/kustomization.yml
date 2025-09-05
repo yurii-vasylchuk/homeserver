@@ -15,6 +15,7 @@ helmCharts:
 
       startupProbe:
         enabled: true
+        failureThreshold: 120
 
       ingress:
         enabled: false
