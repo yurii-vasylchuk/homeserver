@@ -47,11 +47,11 @@ spec:
         - name: media
           hostPath:
             type: Directory
-            path: /mnt/external-hdd/media
+            path: /mnt/ssd/media
         - name: qbittorrent-config
           hostPath:
             type: DirectoryOrCreate
-            path: /mnt/external-hdd/qbittorrent-config
+            path: /mnt/ssd/qbittorrent-config
         - name: webui
           hostPath:
             path: /home/ubuntu/webui

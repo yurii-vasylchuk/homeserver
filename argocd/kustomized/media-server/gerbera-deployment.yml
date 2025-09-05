@@ -27,7 +27,7 @@ spec:
         - name: media
           hostPath:
             type: Directory
-            path: /mnt/external-hdd/media
+            path: /mnt/ssd/media
         - name: config
           configMap:
             name: gerbera-config
