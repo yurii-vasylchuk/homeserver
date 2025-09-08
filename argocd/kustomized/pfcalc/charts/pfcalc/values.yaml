@@ -18,11 +18,11 @@ backend:
     host: 'api.pfcalc.yuriivasylchuk.org.ua'
   resources:
     limits:
-      cpu: 800m
-      memory: 512Mi
+      cpu: 1
+      memory: 1024Mi
     requests:
-      cpu: 400m
-      memory: 256Mi
+      cpu: 0.5
+      memory: 512Mi
   liveness:
     enabled: true
     probe:
