@@ -10,4 +10,4 @@ helmCharts:
       frontend:
         version: '1.0.2'
       backend:
-        version: '1.2.4'
+        version: '1.2.5'
