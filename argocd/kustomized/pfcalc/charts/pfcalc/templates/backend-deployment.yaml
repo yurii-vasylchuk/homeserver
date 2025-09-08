@@ -20,8 +20,8 @@ spec:
         - name: {{ .Chart.Name }}-backend
           command:
             - 'java'
-            - '-Xms128m'
-            - '-Xmx256m'
+            - '-Xms64m'
+            - '-Xmx128m'
             - '-jar'
             - 'application.jar'
           image: "{{ .Values.image.repository }}/{{ .Values.backend.tag }}:{{ .Values.backend.version }}"
