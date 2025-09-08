@@ -18,6 +18,11 @@ spec:
         - name: {{ .Values.image.pullSecrets.ghcr }}
       containers:
         - name: {{ .Chart.Name }}-backend
+          command:
+            - '-Xms128m'
+            - '-Xmx256m'
+            - '-jar'
+            - 'application.jar'
           image: "{{ .Values.image.repository }}/{{ .Values.backend.tag }}:{{ .Values.backend.version }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
@@ -50,7 +55,6 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- end }}
-
           {{- with .Values.backend.resources }}
           resources:
             {{- toYaml . | nindent 12 }}

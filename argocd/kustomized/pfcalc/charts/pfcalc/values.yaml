@@ -19,10 +19,11 @@ backend:
   resources:
     limits:
       cpu: 1
-      memory: 1024Mi
+      memory: 256Mi
     requests:
       cpu: 0.5
-      memory: 512Mi
+      memory: 128Mi
+
   liveness:
     enabled: true
     probe:
