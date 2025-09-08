@@ -19,6 +19,7 @@ spec:
       containers:
         - name: {{ .Chart.Name }}-backend
           command:
+            - 'java'
             - '-Xms128m'
             - '-Xmx256m'
             - '-jar'
