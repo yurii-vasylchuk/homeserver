@@ -121,5 +121,7 @@ applicationConfig:
       - 'http://localhost:4200'
       - 'https://pfcalc.yuriivasylchuk.org.ua'
   logging:
+    level:
+      io.opentelemetry: DEBUG
     file:
       name: 'pfcalc.log'
