@@ -24,7 +24,7 @@ backend:
       cpu: 200m
       memory: 256Mi
   liveness:
-    enabled: false
+    enabled: true
     probe:
       httpGet:
         path: /actuator/health/liveness
@@ -32,7 +32,7 @@ backend:
         initialDelaySeconds: 3
         periodSeconds: 3
   readiness:
-    enabled: false # Currently unsupported
+    enabled: true
     probe:
       httpGet:
         path: /actuator/health/readiness
@@ -93,6 +93,8 @@ applicationConfig:
       hibernate:
         ddl-auto: validate
   otel:
+    sdk:
+      disabled: false
     service:
       name: ${spring.application.name}
     instrumentation:

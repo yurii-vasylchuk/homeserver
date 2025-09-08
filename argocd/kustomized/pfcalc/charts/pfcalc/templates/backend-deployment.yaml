@@ -21,6 +21,9 @@ spec:
           image: "{{ .Values.image.repository }}/{{ .Values.backend.tag }}:{{ .Values.backend.version }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
 
+          command:
+            -
+
           ports:
             - name: http
               containerPort: {{ .Values.backend.service.port }}

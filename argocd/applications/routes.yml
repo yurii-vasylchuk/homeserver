@@ -16,7 +16,7 @@ spec:
     namespace: default
 
   source:
-    path: "argocd/helm/routes"
+    path: "argocd/kustomized/routes"
     repoURL: "git@github.com:yurii-vasylchuk/homeserver.git"
     targetRevision: HEAD
 
