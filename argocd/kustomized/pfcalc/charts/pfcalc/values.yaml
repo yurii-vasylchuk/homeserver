@@ -30,17 +30,17 @@ backend:
       httpGet:
         path: /actuator/health/liveness
         port: 8080
-        initialDelaySeconds: 360
-        periodSeconds: 3
+      initialDelaySeconds: 360
+      periodSeconds: 3
   readiness:
     enabled: true
     probe:
       httpGet:
         path: /actuator/health/readiness
         port: 8080
-        initialDelaySeconds: 30
-        periodSeconds: 5
-        failureThreshold: 60
+      initialDelaySeconds: 30
+      periodSeconds: 5
+      failureThreshold: 60
 
 frontend:
   replicaCount: 1
