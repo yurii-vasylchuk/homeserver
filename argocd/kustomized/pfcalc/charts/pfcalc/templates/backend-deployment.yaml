@@ -56,6 +56,13 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- end }}
+
+          {{- if .Values.backend.startup.enabled }}
+          {{- with .Values.backend.startup.probe }}
+          startupProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- end }}
           {{- with .Values.backend.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
