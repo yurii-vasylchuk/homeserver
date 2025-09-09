@@ -96,7 +96,7 @@ applicationConfig:
         ddl-auto: validate
   otel:
     sdk:
-      disabled: true
+      disabled: false
     service:
       name: ${spring.application.name}
     instrumentation:
