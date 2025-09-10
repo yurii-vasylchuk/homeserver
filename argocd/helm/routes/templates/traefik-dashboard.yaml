@@ -5,7 +5,7 @@ metadata:
   namespace: kube-system
 spec:
   forwardAuth:
-    address: "https://auth.yuriivasylchuk.org.ua?rd=https://traefik.yuriivasylchuk.org.ua"
+    address: "https://auth.vasylchuk.org.ua?rd=https://traefik.vasylchuk.org.ua"
     trustForwardHeader: true
     authResponseHeaders:
       - X-Auth-Request-Access-Token
@@ -22,7 +22,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: "Host(`traefik.yuriivasylchuk.org.ua`) && PathPrefix(`/`)"
+    - match: "Host(`traefik.vasylchuk.org.ua`) && PathPrefix(`/`)"
       kind: Rule
       services:
         - name: traefik
@@ -44,7 +44,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: "Host(`traefik.yuriivasylchuk.org.ua`) && PathPrefix(`/oauth2/`)"
+    - match: "Host(`traefik.vasylchuk.org.ua`) && PathPrefix(`/oauth2/`)"
       kind: Rule
       middlewares:
         - name: auth-headers
@@ -67,7 +67,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`traefik.yuriivasylchuk.org.ua`)
+    - match: Host(`traefik.vasylchuk.org.ua`)
       kind: Rule
       middlewares:
         - name: redirect-to-https

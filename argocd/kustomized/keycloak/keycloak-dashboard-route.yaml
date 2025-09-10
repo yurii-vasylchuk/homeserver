@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`keycloak.yuriivasylchuk.org.ua`)
+    - match: Host(`keycloak.vasylchuk.org.ua`)
       kind: Rule
       services:
         - name: keycloak
@@ -26,7 +26,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`keycloak.yuriivasylchuk.org.ua`)
+    - match: Host(`keycloak.vasylchuk.org.ua`)
       kind: Rule
       middlewares:
         - name: redirect-to-https

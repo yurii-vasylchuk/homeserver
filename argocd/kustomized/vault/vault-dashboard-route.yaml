@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`vault.yuriivasylchuk.org.ua`)
+    - match: Host(`vault.vasylchuk.org.ua`)
       kind: Rule
       services:
         - name: vault
@@ -26,7 +26,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`vault.yuriivasylchuk.org.ua`)
+    - match: Host(`vault.vasylchuk.org.ua`)
       kind: Rule
       middlewares:
         - name: redirect-to-https

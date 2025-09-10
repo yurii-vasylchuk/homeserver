@@ -15,7 +15,7 @@ backend:
     port: 8080
   ingress:
     enabled: true
-    host: 'api.pfcalc.yuriivasylchuk.org.ua'
+    host: 'api.pfcalc.vasylchuk.org.ua'
   resources:
     limits:
       cpu: 400m
@@ -62,7 +62,7 @@ frontend:
     port: 80
   ingress:
     enabled: true
-    host: pfcalc.yuriivasylchuk.org.ua
+    host: pfcalc.vasylchuk.org.ua
   resources:
     limits:
       cpu: 200m
@@ -122,7 +122,7 @@ applicationConfig:
       same-site: none
       key-algorithm: RSA
       public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv0uTlsHvNAsS4lrKj9lKU6ho4Tt0bHWvp9Ye5jGXESCdvq1MWqMGhdRBS4B4gEqRCqWRWa8ojUodXNt486jgv8o53NGzjyoyRtPmEysvCo8P2DUK+oGlANuEEQjC2H/s7pi0BFG56/qa2P+1aLjF1beM4rKvmxQ80OwOizTF7PJIN4D6mj/i1VW9zBG8cgPz+wlftciuvH8+v6WLWrKGCKa8qMzOPYbmmksR8lVtAbEsa3fX02tMf0vUm2M6kzK3JzEl6z/A4uVuq8tIagw9gkPzALYMhxUY/BDjE08Ia5HkurBmtczSmLUbyc8zEQjkhR9UVl2ygxVblAtHFBT0ZwIDAQAB
-      issuer: 'https://pfcalc.yuriivasylchuk.org.ua'
+      issuer: 'https://pfcalc.vasylchuk.org.ua'
       auth-token-expiration: 3m
       refresh-token-expiration: 10d
     mail:
@@ -131,7 +131,7 @@ applicationConfig:
     expose-exception: on
     cors:
       - 'http://localhost:4200'
-      - 'https://pfcalc.yuriivasylchuk.org.ua'
+      - 'https://pfcalc.vasylchuk.org.ua'
   logging:
     file:
       name: 'pfcalc.log'

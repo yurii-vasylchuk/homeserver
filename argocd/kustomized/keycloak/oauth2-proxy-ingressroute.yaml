@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: "Host(`auth.yuriivasylchuk.org.ua`) && PathPrefix(`/`)"
+    - match: "Host(`auth.vasylchuk.org.ua`) && PathPrefix(`/`)"
       kind: Rule
       middlewares:
         - name: auth-headers

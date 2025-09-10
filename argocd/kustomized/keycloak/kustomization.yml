@@ -60,14 +60,14 @@ helmCharts:
           pass_access_token=true
 
           provider="keycloak-oidc"
-          oidc_issuer_url="https://keycloak.yuriivasylchuk.org.ua/realms/home-server"
-          redirect_url="https://auth.yuriivasylchuk.org.ua/oauth2/callback"
+          oidc_issuer_url="https://keycloak.vasylchuk.org.ua/realms/home-server"
+          redirect_url="https://auth.vasylchuk.org.ua/oauth2/callback"
           code_challenge_method="S256"
 
-          cookie_domains=["yuriivasylchuk.org.ua"]
+          cookie_domains=["vasylchuk.org.ua"]
           cookie_samesite="lax"
 
-          whitelist_domains=[".yuriivasylchuk.org.ua"]
+          whitelist_domains=[".vasylchuk.org.ua"]
       resources:
         limits:
           cpu: 200m

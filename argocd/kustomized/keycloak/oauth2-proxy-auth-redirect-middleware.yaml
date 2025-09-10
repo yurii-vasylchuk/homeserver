@@ -7,7 +7,7 @@
 #  namespace: keycloak
 #spec:
 #  forwardAuth:
-#    address: "https://auth.yuriivasylchuk.org.ua?rd=https://torrent.yuriivasylchuk.org.ua"
+#    address: "https://auth.vasylchuk.org.ua?rd=https://torrent.vasylchuk.org.ua"
 #    trustForwardHeader: true
 #    authResponseHeaders:
 #      - X-Auth-Request-Access-Token
