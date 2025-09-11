@@ -54,7 +54,7 @@ spec:
 
           {{- if .Values.backend.startup.enabled }}
           {{- with .Values.backend.startup.probe }}
-          readinessProbe:
+          startupProbe:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- end }}
