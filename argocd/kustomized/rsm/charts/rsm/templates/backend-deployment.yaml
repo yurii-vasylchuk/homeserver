@@ -52,10 +52,24 @@ spec:
           {{- end }}
           {{- end }}
 
+          {{- if .Values.backend.startup.enabled }}
+          {{- with .Values.backend.startup.probe }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- end }}
+
           {{- with .Values.backend.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+
+          command:
+            - 'java'
+            - '-Xms64m'
+            - '-Xmx128m'
+            - '-jar'
+            - 'application.jar'
 
 
           volumeMounts:

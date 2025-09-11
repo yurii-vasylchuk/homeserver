@@ -19,26 +19,38 @@ backend:
   resources:
     limits:
       cpu: 400m
-      memory: 512Mi
+      memory: 1024Mi
     requests:
       cpu: 200m
       memory: 256Mi
   liveness:
-    enabled: false
+    enabled: true
     probe:
       httpGet:
         path: /actuator/health/liveness
         port: 8080
-        initialDelaySeconds: 3
-        periodSeconds: 3
+      periodSeconds: 3
+      failureThreshold: 3
+
+  startup:
+    enabled: true
+    probe:
+      httpGet:
+        path: /actuator/health/liveness
+        port: 8080
+      initialDelaySeconds: 120
+      periodSeconds: 5
+      failureThreshold: 60
+
   readiness:
-    enabled: false # Currently unsupported
+    enabled: true
     probe:
       httpGet:
         path: /actuator/health/readiness
         port: 8080
-        initialDelaySeconds: 3
-        periodSeconds: 3
+      initialDelaySeconds: 30
+      periodSeconds: 5
+      failureThreshold: 60
 
 frontend:
   replicaCount: 1
