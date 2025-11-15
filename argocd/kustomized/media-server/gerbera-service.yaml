@@ -10,3 +10,6 @@ spec:
     - port: 49494
       targetPort: 49494
       protocol: TCP
+    - port: 1900
+      targetPort: 1900
+      protocol: UDP
