@@ -10,8 +10,8 @@ spec:
     - port: 49494
       targetPort: 49494
       protocol: TCP
-      name: HTTP
+      name: http
     - port: 1900
       targetPort: 1900
       protocol: UDP
-      name: SSDP
+      name: ssdp
