@@ -109,6 +109,11 @@ applicationConfig:
             issuer-uri: 'https://keycloak.vasylchuk.org.ua/realms/rsm'
     application:
       name: backend
+  otel:
+    resource:
+      attributes:
+        environment: 'home-server'
+        application: 'rsm-backend'
   management:
     server:
       port: 8080

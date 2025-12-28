@@ -113,6 +113,10 @@ applicationConfig:
     instrumentation:
       micrometer:
         enabled: true
+    resource:
+      attributes:
+        environment: 'home-server'
+        application: 'pfcalc-backend'
   pfcc:
     reports:
       store-path: "/data/reports"
