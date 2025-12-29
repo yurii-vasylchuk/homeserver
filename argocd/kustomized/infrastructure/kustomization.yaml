@@ -25,14 +25,15 @@ helmCharts:
     version: 9.3.1
     namespace: infrastructure
     valuesFile: 'values/grafana-values.yaml'
-#  - name: databasus
-#    repo: 'oci://ghcr.io/databasus/charts/databasus'
-#    namespace: infrastructure
-#    valuesFile: 'vales/databasus-values.yaml'
+  - name: databasus
+    releaseName: databasus
+    repo: 'oci://ghcr.io/databasus/charts/databasus'
+    namespace: infrastructure
+    valuesFile: 'vales/databasus-values.yaml'
 
 resources:
   - 'resources/ghcr_docker_es.yaml'
   - 'resources/grafana_es.yaml'
   - 'resources/grafana-ingress-route.yaml'
   - 'resources/opentelemetry-collector-es.yaml'
-#  - 'resources/databasus-ingress-route.yaml'
+  - 'resources/databasus-ingress-route.yaml'
