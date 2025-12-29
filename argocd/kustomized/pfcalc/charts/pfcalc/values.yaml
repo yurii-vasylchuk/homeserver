@@ -97,6 +97,10 @@ persistence:
     storageClass: local-path
 
 applicationConfig:
+  management:
+    metrics:
+      tags:
+        environment: 'home-server'
   spring:
     datasource:
       url: jdbc:postgresql://postgres.postgres:5432/pfcalc

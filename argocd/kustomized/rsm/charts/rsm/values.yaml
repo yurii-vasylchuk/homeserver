@@ -114,7 +114,12 @@ applicationConfig:
       attributes:
         environment: 'home-server'
         application: 'rsm-backend'
+
   management:
+    metrics:
+      tags:
+        environment: 'home-server'
+        application: 'rsm-backend'
     server:
       port: 8080
     endpoints:
