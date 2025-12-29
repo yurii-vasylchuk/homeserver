@@ -15,19 +15,24 @@ helmCharts:
     releaseName: victoria-metrics
     valuesFile: 'values/vm-values.yaml'
   - name: tempo
-    repo: https://grafana.github.io/helm-charts
+    repo: 'https://grafana.github.io/helm-charts'
     version: 1.7.1
     releaseName: tempo
-    valuesFile: values/tempo-values.yaml
+    valuesFile: 'values/tempo-values.yaml'
   - name: grafana
     releaseName: grafana
-    repo: https://grafana.github.io/helm-charts
+    repo: 'https://grafana.github.io/helm-charts'
     version: 9.3.1
     namespace: infrastructure
-    valuesFile: values/grafana-values.yaml
+    valuesFile: 'values/grafana-values.yaml'
+  - name: databasus
+    repo: 'oci://ghcr.io/databasus/charts/databasus'
+    namespace: infrastructure
+    valuesFile: 'vales/databasus-values.yaml'
 
 resources:
   - 'resources/ghcr_docker_es.yaml'
   - 'resources/grafana_es.yaml'
   - 'resources/grafana-ingress-route.yaml'
   - 'resources/opentelemetry-collector-es.yaml'
+  - 'resources/databasus-ingress-route.yaml'
