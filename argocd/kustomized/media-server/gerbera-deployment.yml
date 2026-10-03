@@ -26,11 +26,15 @@ spec:
           volumeMounts:
             - name: media
               mountPath: "/mnt/content"
+            - name: config
+              mountPath: "/var/run/gerbera"
       volumes:
         - name: media
           hostPath:
             type: Directory
             path: /mnt/ssd/media
         - name: config
-          configMap:
-            name: gerbera-config
+          persistentVolumeClaim:
+            claimName: gerbera-config-pvc
+#          configMap:
+#            name: gerbera-config
