@@ -1,3 +1,22 @@
+- name: Configure inotify limits
+  ansible.builtin.copy:
+    dest: /etc/sysctl.d/99-homeserver-inotify.conf
+    content: |
+      fs.inotify.max_user_instances = 1024
+      fs.inotify.max_user_watches = 524288
+    owner: root
+    group: root
+    mode: '0644'
+  register: inotify_limits
+  tags:
+    - inotify
+
+- name: Apply inotify limits
+  ansible.builtin.command: sysctl --system
+  when: inotify_limits.changed
+  tags:
+    - inotify
+
 - name: Copy files
   ansible.builtin.copy:
     src: files/
