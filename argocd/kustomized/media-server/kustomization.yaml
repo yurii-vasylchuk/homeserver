@@ -28,3 +28,5 @@ resources:
   - prowlarr-deployment.yaml
   - prowlarr-service.yaml
   - prowlarr-ingress-route.yaml
+  - flaresolverr-deployment.yaml
+  - flaresolverr-service.yaml
