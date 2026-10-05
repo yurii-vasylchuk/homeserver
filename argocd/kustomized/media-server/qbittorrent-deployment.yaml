@@ -38,8 +38,6 @@ spec:
             - containerPort: 6881
               protocol: UDP
           volumeMounts:
-            - mountPath: /downloads
-              name: media
             - mountPath: /data
               name: media
             - mountPath: /config

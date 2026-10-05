@@ -67,7 +67,7 @@ spec:
             - name: cache
               mountPath: /cache
             - name: media
-              mountPath: /data
+              mountPath: /data/library
               readOnly: true
       volumes:
         - name: config
@@ -79,4 +79,4 @@ spec:
         - name: media
           hostPath:
             type: Directory
-            path: /mnt/ssd/media
+            path: /mnt/ssd/media/library
